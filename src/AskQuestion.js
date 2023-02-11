@@ -9,7 +9,6 @@ const AskQuestion = (obj) => {
     const [sctyTotals, setSctyTotals] = useState([]);
 
     useEffect(() => {
-        console.log(econTotals);
     }, [obj.currentQuestion])
 
     function getRandomNumbers() {

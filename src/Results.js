@@ -131,7 +131,6 @@ const Results = (obj) => {
         }
 
         console.log(ideologiesObj);
-        console.log(moreIdeologiesObj);
 
         for (let i = 0; i < ideologiesObj.length; i++){
             let econ = ideologiesObj[i].position.econ;
