@@ -8,7 +8,7 @@ const Home = () => {
 
     const { data: questions, isPending, error } = useFetch('http://localhost:8000/questions');
     const [position, setPosition] = useState([0,0,0,0]);
-    const [submitted, setSubmitted] = useState(false);
+    const [submitted, setSubmitted] = useState({"trigger": false});
 
     useEffect(() => {
         console.log(position);
@@ -21,14 +21,21 @@ const Home = () => {
             */}
             {error && <div>{error}</div>}
             {isPending && <div>Loading...</div>}
-            {questions && !submitted && <PoliticalTest 
+            {questions && !submitted.trigger && <PoliticalTest 
                 questions={questions} 
                 position={position} 
                 setPosition={setPosition} 
                 setSubmitted={setSubmitted}
             />}
-            {submitted && <Results 
+            {/* {!submitted.trigger && <PoliticalTest 
+                position={position} 
+                setPosition={setPosition} 
+                setSubmitted={setSubmitted}
+            />} */}
+            {submitted.trigger && <Results 
                 position={position}
+                setPosition={setPosition}
+                results={submitted.results}
             />}
         </div>
     );

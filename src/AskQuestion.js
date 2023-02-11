@@ -3,9 +3,13 @@ import { useState, useEffect } from 'react';
 const AskQuestion = (obj) => {
 
     const [choices, setChoices] = useState([]);
+    const [econTotals, setEconTotals] = useState([]);
+    const [diplTotals, setDiplTotals] = useState([]);
+    const [govtTotals, setGovtTotals] = useState([]);
+    const [sctyTotals, setSctyTotals] = useState([]);
 
     useEffect(() => {
-        
+        console.log(econTotals);
     }, [obj.currentQuestion])
 
     function getRandomNumbers() {
@@ -24,24 +28,45 @@ const AskQuestion = (obj) => {
                 obj.position[0] - value*obj.questions[obj.currentQuestion-1].effect.econ, 
                 obj.position[1] - value*obj.questions[obj.currentQuestion-1].effect.dipl, 
                 obj.position[2] - value*obj.questions[obj.currentQuestion-1].effect.govt, 
-                obj.position[3] - value*obj.questions[obj.currentQuestion-1].effect.scty]);
-                obj.setCurrentQuestion(obj.currentQuestion + move);
+                obj.position[3] - value*obj.questions[obj.currentQuestion-1].effect.scty
+            ]);
             
+            obj.setCurrentQuestion(obj.currentQuestion + move);
+            
+            setEconTotals(econTotals.slice(0,econTotals.length-1));
+            setDiplTotals(diplTotals.slice(0,diplTotals.length-1));
+            setGovtTotals(govtTotals.slice(0,govtTotals.length-1));
+            setSctyTotals(sctyTotals.slice(0,sctyTotals.length-1));
         }
         else{
+            
             obj.setPosition([
                 obj.position[0] + value*obj.questions[obj.currentQuestion].effect.econ, 
                 obj.position[1] + value*obj.questions[obj.currentQuestion].effect.dipl, 
                 obj.position[2] + value*obj.questions[obj.currentQuestion].effect.govt, 
-                obj.position[3] + value*obj.questions[obj.currentQuestion].effect.scty]);
+                obj.position[3] + value*obj.questions[obj.currentQuestion].effect.scty
+            ]);
             obj.setCurrentQuestion(obj.currentQuestion + move);
             setChoices([...choices, value]);
+
+            setEconTotals([...econTotals, obj.questions[obj.currentQuestion].effect.econ]);
+            setDiplTotals([...diplTotals, obj.questions[obj.currentQuestion].effect.dipl]);
+            setGovtTotals([...govtTotals, obj.questions[obj.currentQuestion].effect.govt]);
+            setSctyTotals([...sctyTotals, obj.questions[obj.currentQuestion].effect.scty]);
         }
         
     }
 
     const submitResults = (position) => {
-        obj.setSubmitted(true);
+        obj.setSubmitted({
+            "trigger": true,
+            "totals": {
+                "econ": econTotals.reduce((a,b) => Math.abs(a)+ Math.abs(b), 0),
+                "dipl": diplTotals.reduce((a,b) => Math.abs(a)+ Math.abs(b), 0),
+                "govt": govtTotals.reduce((a,b) => Math.abs(a)+ Math.abs(b), 0),
+                "scty": sctyTotals.reduce((a,b) => Math.abs(a)+ Math.abs(b), 0)
+            }
+        });
     }
 
     return ( 

@@ -633,7 +633,8 @@
   ],
   "ideologies":[
     {
-      "name": "Nazism",
+      "category": "Nazism",
+      "name": "Squirrel Hitler",
       "quote": "The only thing we learn from history is that we learn nothing from history.",
       "position": {
           "econ": 0,
@@ -643,7 +644,8 @@
       }
     },
     {
-      "name": "Democratic People's Republic of Korea",
+      "category": "Democratic People's Republic of Korea",
+      "name": "Acorn Jong-un",
       "quote": "Dear leader is always right.",
       "position": {
           "econ": 100,
@@ -653,7 +655,8 @@
       }
     },
     {
-      "name": "Globalist Totalitarian Capitalism",
+      "category": "Globalist Totalitarian Capitalism",
+      "name": "George Squirrelos",
       "quote": "Progress is a crime.",
       "position": {
           "econ": 0,
@@ -663,7 +666,8 @@
       }
     },
     {
-      "name": "Global Theocracy",
+      "category": "Global Theocracy",
+      "name": "Pope Scamper III",
       "quote": "Lenin would have made a great Pope.",
       "position": {
           "econ": 100,
@@ -673,7 +677,8 @@
       }
     },
     {
-      "name": "Religious Anarcho-Capitalism",
+      "category": "Religious Anarcho-Capitalism",
+      "name": "The Dali Squirrel",
       "quote": "Selling your wares at the market is a sin, but selling your soul to the devil is a business opportunity.",
       "position": {
           "econ": 0,
@@ -683,7 +688,8 @@
       }
     },
     {
-      "name": "Spiritual Commune",
+      "category": "Spiritual Commune",
+      "name": "Jim Pinecones",
       "quote": "Don't drink the Kool-Aid.",
       "position": {
           "econ": 100,
@@ -693,7 +699,8 @@
       }
     },
     {
-      "name": "Religious Anarchism",
+      "category": "Religious Anarchism",
+      "name": "Leo Tolstoyster",
       "quote": "The only true freedom is the freedom to serve God.",
       "position": {
           "econ": 0,
@@ -703,7 +710,8 @@
       }
     },
     {
-      "name": "Global Shamanism",
+      "category": "Global Shamanism",
+      "name": "The Great Squirrel",
       "quote": "*mumbles in rock language before the UN*",
       "position": {
           "econ": 100,
@@ -713,7 +721,8 @@
       }
     },
     {
-      "name": "Objectivist Technocracy",
+      "category": "Objectivist Technocracy",
+      "name": "Ayn Sandshrew",
       "quote": "Who is John Galt?",
       "position": {
           "econ": 0,
@@ -723,7 +732,8 @@
       }
     },
     {
-      "name": "Stalinism",
+      "category": "Stalinism",
+      "name": "Joseph Squirrlin",
       "quote": "In Soviet Russia, porn watches you!",
       "position": {
           "econ": 100,
@@ -733,7 +743,8 @@
       }
     },
     {
-      "name": "Global Surveillance Capitalism",
+      "category": "Global Surveillance Capitalism",
+      "name": "Alvin Dulles",
       "quote": "The Birds are Watching",
       "position": {
           "econ": 0,
@@ -743,7 +754,8 @@
       }
     },
     {
-      "name": "Global Totalitarianism",
+      "category": "Global Totalitarianism",
+      "name": "Napoléon Acornaparte",
       "qoute": "The end justifies the means",
       "position": {
           "econ": 100,
@@ -753,7 +765,8 @@
       }
     },
     {
-      "name": "Anarchy",
+      "category": "Anarchy",
+      "name": "Noam Chompsky",
       "quote": "Do as thou wilt shall be the whole of the law.",
       "position": {
           "econ": 0,
@@ -763,7 +776,8 @@
       }
     },
     {
-      "name": "Nativism",
+      "category": "Nativism",
+      "name": "David Kook",
       "quote": "We must protect our culture!",
       "position": {
           "econ": 100,
@@ -773,7 +787,8 @@
       }
     },
     {
-      "name": "Galactic Trade Federation",
+      "category": "Galactic Trade Federation",
+      "name": "Newt Gunroy",
       "quote": "We are the Federation. We are the future.",
       "position": {
           "econ": 0,
@@ -783,7 +798,8 @@
       }
     },
     {
-      "name": "Fully Automated Luxury Gay Space Communism",
+      "category": "Fully Automated Luxury Gay Space Communism",
+      "name": "Captain Jean-Luc Picardnal",
       "quote": "In space, no one can hear you cum in another man's mouth.",
       "position": {
           "econ": 100,
@@ -791,12 +807,6 @@
           "govt": 100,
           "scty": 100
       }
-    }
-  ],
-  "questGivers":[
-    {
-      "name": "nada",
-      "scenarios":[]
     }
   ]
 }

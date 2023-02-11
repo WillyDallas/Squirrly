@@ -52,7 +52,7 @@ const PoliticalTest = (obj) => {
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
             />} */}
-            {obj.questions && <AskQuestion 
+            <AskQuestion 
                 questions={testobj.questions}
                 total = {testobj.questions.length} 
                 position={obj.position} 
@@ -60,7 +60,7 @@ const PoliticalTest = (obj) => {
                 setSubmitted={obj.setSubmitted}
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
-            />}
+            />
         </div>
 
     );
