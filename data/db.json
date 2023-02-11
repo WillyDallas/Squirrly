@@ -637,10 +637,10 @@
       "name": "Squirrel Hitler",
       "quote": "The only thing we learn from history is that we learn nothing from history.",
       "position": {
-          "econ": 0,
-          "dipl": 0,
-          "govt": 0,
-          "scty": 0
+          "econ": -1,
+          "dipl": -1,
+          "govt": -1,
+          "scty": -1
       }
     },
     {
@@ -648,10 +648,10 @@
       "name": "Acorn Jong-un",
       "quote": "Dear leader is always right.",
       "position": {
-          "econ": 100,
-          "dipl": 0,
-          "govt": 0,
-          "scty": 0
+          "econ": 1,
+          "dipl": -1,
+          "govt": -1,
+          "scty": -1
       }
     },
     {
@@ -659,10 +659,10 @@
       "name": "George Squirrelos",
       "quote": "Progress is a crime.",
       "position": {
-          "econ": 0,
-          "dipl": 100,
-          "govt": 0,
-          "scty": 0
+          "econ": -1,
+          "dipl": 1,
+          "govt": -1,
+          "scty": -1
       }
     },
     {
@@ -670,10 +670,10 @@
       "name": "Pope Scamper III",
       "quote": "Lenin would have made a great Pope.",
       "position": {
-          "econ": 100,
-          "dipl": 100,
-          "govt": 0,
-          "scty": 0
+          "econ": 1,
+          "dipl": 1,
+          "govt": -1,
+          "scty": -1
       }
     },
     {
@@ -681,10 +681,10 @@
       "name": "The Dali Squirrel",
       "quote": "Selling your wares at the market is a sin, but selling your soul to the devil is a business opportunity.",
       "position": {
-          "econ": 0,
-          "dipl": 0,
-          "govt": 100,
-          "scty": 0
+          "econ": -1,
+          "dipl": -1,
+          "govt": 1,
+          "scty": -1
       }
     },
     {
@@ -692,10 +692,10 @@
       "name": "Jim Pinecones",
       "quote": "Don't drink the Kool-Aid.",
       "position": {
-          "econ": 100,
-          "dipl": 0,
-          "govt": 100,
-          "scty": 0
+          "econ": 1,
+          "dipl": -1,
+          "govt": 1,
+          "scty": -1
       }
     },
     {
@@ -703,10 +703,10 @@
       "name": "Leo Tolstoyster",
       "quote": "The only true freedom is the freedom to serve God.",
       "position": {
-          "econ": 0,
-          "dipl": 100,
-          "govt": 100,
-          "scty": 0
+          "econ": -1,
+          "dipl": 1,
+          "govt": 1,
+          "scty": -1
       }
     },
     {
@@ -714,10 +714,10 @@
       "name": "The Great Squirrel",
       "quote": "*mumbles in rock language before the UN*",
       "position": {
-          "econ": 100,
-          "dipl": 100,
-          "govt": 100,
-          "scty": 0
+          "econ": 1,
+          "dipl": 1,
+          "govt": 1,
+          "scty": -1
       }
     },
     {
@@ -725,10 +725,10 @@
       "name": "Ayn Sandshrew",
       "quote": "Who is John Galt?",
       "position": {
-          "econ": 0,
-          "dipl": 0,
-          "govt": 0,
-          "scty": 100
+          "econ": -1,
+          "dipl": -1,
+          "govt": -1,
+          "scty": 1
       }
     },
     {
@@ -736,10 +736,10 @@
       "name": "Joseph Squirrlin",
       "quote": "In Soviet Russia, porn watches you!",
       "position": {
-          "econ": 100,
-          "dipl": 0,
-          "govt": 0,
-          "scty": 100
+          "econ": 1,
+          "dipl": -1,
+          "govt": -1,
+          "scty": 1
       }
     },
     {
@@ -747,10 +747,10 @@
       "name": "Alvin Dulles",
       "quote": "The Birds are Watching",
       "position": {
-          "econ": 0,
-          "dipl": 100,
-          "govt": 0,
-          "scty": 100
+          "econ": -1,
+          "dipl": 1,
+          "govt": -1,
+          "scty": 1
       }
     },
     {
@@ -758,10 +758,10 @@
       "name": "Napoléon Acornaparte",
       "qoute": "The end justifies the means",
       "position": {
-          "econ": 100,
-          "dipl": 100,
-          "govt": 0,
-          "scty": 100
+          "econ": 1,
+          "dipl": 1,
+          "govt": -1,
+          "scty": 1
       }
     },
     {
@@ -769,10 +769,10 @@
       "name": "Noam Chompsky",
       "quote": "Do as thou wilt shall be the whole of the law.",
       "position": {
-          "econ": 0,
-          "dipl": 0,
-          "govt": 100,
-          "scty": 100
+          "econ": -1,
+          "dipl": -1,
+          "govt": 1,
+          "scty": 1
       }
     },
     {
@@ -780,10 +780,10 @@
       "name": "David Kook",
       "quote": "We must protect our culture!",
       "position": {
-          "econ": 100,
-          "dipl": 0,
-          "govt": 100,
-          "scty": 100
+          "econ": 1,
+          "dipl": -1,
+          "govt": 1,
+          "scty": 1
       }
     },
     {
@@ -791,10 +791,10 @@
       "name": "Newt Gunroy",
       "quote": "We are the Federation. We are the future.",
       "position": {
-          "econ": 0,
-          "dipl": 100,
-          "govt": 100,
-          "scty": 100
+          "econ": -1,
+          "dipl": 1,
+          "govt": 1,
+          "scty": 1
       }
     },
     {
@@ -802,11 +802,14 @@
       "name": "Captain Jean-Luc Picardnal",
       "quote": "In space, no one can hear you cum in another man's mouth.",
       "position": {
-          "econ": 100,
-          "dipl": 100,
-          "govt": 100,
-          "scty": 100
+          "econ": 1,
+          "dipl": 1,
+          "govt": 1,
+          "scty": 1
       }
     }
+  ],
+  "rubric":[
+
   ]
 }

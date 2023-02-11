@@ -43,24 +43,20 @@ const PoliticalTest = (obj) => {
 
         <div className="political-test">
             <h2>Political Test</h2>
-            {/* {obj.questions && <AskQuestion 
+            {obj.questions && <AskQuestion 
                 questions={obj.questions}
                 total = {obj.questions.length} 
-                position={obj.position} 
-                setPosition={obj.setPosition}
                 setSubmitted={obj.setSubmitted}
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
-            />} */}
-            <AskQuestion 
+            />}
+            {/* <AskQuestion 
                 questions={testobj.questions}
-                total = {testobj.questions.length} 
-                position={obj.position} 
-                setPosition={obj.setPosition}
+                total = {testobj.questions.length}
                 setSubmitted={obj.setSubmitted}
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
-            />
+            /> */}
         </div>
 
     );

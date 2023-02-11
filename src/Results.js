@@ -38,43 +38,7 @@ const Results = (obj) => {
     const { data: ideologies, isPending, error } = useFetch('http://localhost:8000/ideologies');
 
     
-    const [testFlag, setTestFlag] = useState(false);
-
-
-
-    function findMean(arr) {
-        return arr.reduce((a, b) => a + b, 0) / arr.length;
-    }
-    
-    function findMode(arr) {
-        let modeMap = {};
-        let maxCount = 0;
-        let modes = [];
-      
-        arr.forEach((val) => {
-          if (!modeMap[val]) modeMap[val] = 1;
-          else modeMap[val]++;
-      
-          if (modeMap[val] > maxCount) {
-            modes = [val];
-            maxCount = modeMap[val];
-          } else if (modeMap[val] === maxCount) {
-            modes.push(val);
-            maxCount = modeMap[val];
-          }
-        });
-      
-        if (modes.length === Object.keys(modeMap).length) modes = [];
-      
-        return modes;
-    }
-    
-    function findStdDev(arr) {
-        let meanValue = findMean(arr);
-        let deviationSquaredArr = arr.map((val) => (val - meanValue) ** 2);
-        let meanDeviationSquared = findMean(deviationSquaredArr);
-        return Math.sqrt(meanDeviationSquared);
-    }  
+    const [testFlag, setTestFlag] = useState(false); 
 
     const sortAndReduce = (arr) => {
         let arrSet = new Set(arr);
@@ -100,7 +64,9 @@ const Results = (obj) => {
         let closestArr = [];
         for (let i = 0; i < rubric.length; i++){
             closestArr.push({
+                "category": rubric[i].category,
                 "name": rubric[i].name,
+                "quote": rubric[i].quote,
                 "position": rubric[i].position,
                 "distance": fourDimensionalDistance(position, rubric[i].position)
             });
@@ -113,142 +79,22 @@ const Results = (obj) => {
         //TODO: Limit to 3 closest ideologies
         //TODO: If there is a tie, return all of them
     }
-    
-    const createNewDataStructure = (ideologiesObj) => {
-        let newObj = {"ideologies": {"econ": []}};
-        let ideologicalRubric = [];
-        for (let i = 0; i < 4; i++){
-            newObj.ideologies.econ.push({"min": 25*i, "max": 25*(i+1), "dipl":[]});
-            for (let j = 0; j < 4; j++){
-                newObj.ideologies.econ[i].dipl.push({"min": 25*j, "max": 25*(j+1), "govt":[]});
-                for (let k = 0; k < 4; k++){
-                    newObj.ideologies.econ[i].dipl[j].govt.push({"min": 25*k, "max": 25*(k+1), "scty":[]});
-                    for (let l = 0; l < 4; l++){
-                        newObj.ideologies.econ[i].dipl[j].govt[k].scty.push({"min": 25*l, "max": 25*(l+1), "category":null});
-                    }
-                }
-            } 
-        }
 
-        console.log(ideologiesObj);
-
-        for (let i = 0; i < ideologiesObj.length; i++){
-            let econ = ideologiesObj[i].position.econ;
-            let dipl = ideologiesObj[i].position.dipl;
-            let govt = ideologiesObj[i].position.govt;
-            let scty = ideologiesObj[i].position.scty;
-            let category = ideologiesObj[i].name;
-            for (let j = 0; j < newObj.ideologies.econ.length; j++){
-                if (econ >= newObj.ideologies.econ[j].min && econ <= newObj.ideologies.econ[j].max){
-                    for (let k = 0; k < newObj.ideologies.econ[j].dipl.length; k++){
-                        if (dipl >= newObj.ideologies.econ[j].dipl[k].min && dipl <= newObj.ideologies.econ[j].dipl[k].max){
-                            for (let l = 0; l < newObj.ideologies.econ[j].dipl[k].govt.length; l++){
-                                if (govt >= newObj.ideologies.econ[j].dipl[k].govt[l].min && govt <= newObj.ideologies.econ[j].dipl[k].govt[l].max){
-                                    for (let m = 0; m < newObj.ideologies.econ[j].dipl[k].govt[l].scty.length; m++){
-                                        if (scty >= newObj.ideologies.econ[j].dipl[k].govt[l].scty[m].min && scty <= newObj.ideologies.econ[j].dipl[k].govt[l].scty[m].max){
-                                            ideologicalRubric.push({
-                                                "name": category,
-                                                "position": {
-                                                    "econ": (newObj.ideologies.econ[j].min + newObj.ideologies.econ[j].max + econ)/3,
-                                                    "dipl": (newObj.ideologies.econ[j].dipl[k].min + newObj.ideologies.econ[j].dipl[k].max + dipl)/3,
-                                                    "govt": (newObj.ideologies.econ[j].dipl[k].govt[l].min + newObj.ideologies.econ[j].dipl[k].govt[l].max + govt)/3,
-                                                    "scty": (newObj.ideologies.econ[j].dipl[k].govt[l].scty[m].min + newObj.ideologies.econ[j].dipl[k].govt[l].scty[m].max + scty)/3
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return {newObj, ideologicalRubric};
-    }
-
-    const mapIdeologies = (semimappedideologiesObj, IdeologicalRubric) => {
-        
-        console.log(semimappedideologiesObj);
-        let distanceArr = [];
-        let minDistanceArr = [];
-
-        for (let j = 0; j < semimappedideologiesObj.ideologies.econ.length; j++){
-            for (let k = 0; k < semimappedideologiesObj.ideologies.econ[j].dipl.length; k++){
-                for (let l = 0; l < semimappedideologiesObj.ideologies.econ[j].dipl[k].govt.length; l++){
-                    for (let m = 0; m < semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty.length; m++){
-                        if(!semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category){
-                            semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category = findClosestIdeology({
-                                "econ": (semimappedideologiesObj.ideologies.econ[j].min + semimappedideologiesObj.ideologies.econ[j].max)/2,
-                                "dipl": (semimappedideologiesObj.ideologies.econ[j].dipl[k].min + semimappedideologiesObj.ideologies.econ[j].dipl[k].max)/2,
-                                "govt": (semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].min + semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].max)/2,
-                                "scty": (semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].min + semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].max)/2
-                            }, IdeologicalRubric);
-                            for(let i = 0; i < semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category.length; i++){
-                               distanceArr.push(semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category[i].distance);
-                            }
-                            minDistanceArr.push(semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category[0].distance)
-                        }
-        
-                    }
-                }
-            }
-        }
-
-        
-        let mode = findMode(distanceArr);
-        let rawMean = findMean(distanceArr);
-        let rawStdDev = findStdDev(distanceArr);
-        let newdistanceArr = sortAndReduce(distanceArr);
-        let newMean = findMean(newdistanceArr);
-        let newStdDev = findStdDev(newdistanceArr);
-        let newMinDistanceArr = sortAndReduce(minDistanceArr);
-        console.log(`mode: ${mode}, rawMean: ${rawMean}, rawStdDev: ${rawStdDev}, newMean: ${newMean}, newStdDev: ${newStdDev}`);
-        let minDistancMean = findMean(newMinDistanceArr);
-        let minDistancStdDev = findStdDev(newMinDistanceArr);
-        console.log(`minDistancMean: ${minDistancMean}, minDistancStdDev: ${minDistancStdDev}`);
-
-        let offendingPositions = [];
-        let cutoff = minDistancMean +  minDistancStdDev;
-
-        for (let j = 0; j < semimappedideologiesObj.ideologies.econ.length; j++){
-            for (let k = 0; k < semimappedideologiesObj.ideologies.econ[j].dipl.length; k++){
-                for (let l = 0; l < semimappedideologiesObj.ideologies.econ[j].dipl[k].govt.length; l++){
-                    for (let m = 0; m < semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty.length; m++){
-                        if(semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category[0].distance > cutoff){
-                            offendingPositions.push({
-                                "position": {
-                                    "econ": (semimappedideologiesObj.ideologies.econ[j].min + semimappedideologiesObj.ideologies.econ[j].max)/2,
-                                    "dipl": (semimappedideologiesObj.ideologies.econ[j].dipl[k].min + semimappedideologiesObj.ideologies.econ[j].dipl[k].max)/2,
-                                    "govt": (semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].min + semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].max)/2,
-                                    "scty": (semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].min + semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].max)/2
-                                },
-                                "closestMatch": semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category[0].name,
-                                "distance": semimappedideologiesObj.ideologies.econ[j].dipl[k].govt[l].scty[m].category[0].distance
-                            });
-                        }
-                    }
-                }
-            }
-        }
-        console.log(offendingPositions);
-
-
-
-
-        
-        return semimappedideologiesObj;
-    }
-
-
-
-        
 
     useEffect(() => {
         if(ideologies){
-            let {newObj, ideologicalRubric} =  createNewDataStructure(ideologies);
-            let finalObj = mapIdeologies(newObj, ideologicalRubric);
-            console.log(finalObj);
+            console.log(obj);
+            let userPosition = {
+                "econ": obj.answers.econ/obj.totals.econ,
+                "dipl": obj.answers.dipl/obj.totals.dipl,
+                "govt": obj.answers.govt/obj.totals.govt,
+                "scty": obj.answers.scty/obj.totals.scty
+            }
+            console.log(userPosition);
+            const matches = findClosestIdeology(userPosition, ideologies);
+            let testMatch = findClosestIdeology({econ: 0.8461538461538461, dipl: 0.6888888888888889, govt: 0.6640625, scty: 0.8544520547945206}, ideologies);
+            console.log(testMatch);
+            console.log(matches);
         }
     }, [testFlag])
     
@@ -261,7 +107,7 @@ const Results = (obj) => {
             {!error && !isPending && <div className="testResults">
                 <h1>Test Results</h1>
             </div>}
-            {<button className="refreshButton" onClick={() => testFlag ? setTestFlag(false): setTestFlag(true)}>Refresh</button>}
+            {<button className="refreshButton" onClick={() => testFlag ? setTestFlag(false): setTestFlag(true)}>Refresh</button>} <br/>
         </div>
     );
 }

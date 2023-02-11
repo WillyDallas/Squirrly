@@ -7,11 +7,10 @@ import { useState, useEffect } from "react";
 const Home = () => {
 
     const { data: questions, isPending, error } = useFetch('http://localhost:8000/questions');
-    const [position, setPosition] = useState([0,0,0,0]);
+    const [position, setPosition] = useState({"econ": 0, "dipl": 0, "govt": 0, "scty": 0});
     const [submitted, setSubmitted] = useState({"trigger": false});
 
     useEffect(() => {
-        console.log(position);
     }, [position])
 
     return (
@@ -24,18 +23,12 @@ const Home = () => {
             {questions && !submitted.trigger && <PoliticalTest 
                 questions={questions} 
                 position={position} 
-                setPosition={setPosition} 
                 setSubmitted={setSubmitted}
             />}
-            {/* {!submitted.trigger && <PoliticalTest 
-                position={position} 
-                setPosition={setPosition} 
-                setSubmitted={setSubmitted}
-            />} */}
             {submitted.trigger && <Results 
-                position={position}
+                totals={submitted.totals}
+                answers={submitted.answers}
                 setPosition={setPosition}
-                results={submitted.results}
             />}
         </div>
     );
