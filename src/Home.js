@@ -3,7 +3,7 @@ import PoliticalTest from "./PoliticalTest";
 import { useState, useEffect } from "react";
 
 
-const Home = () => {
+const Home = (props) => {
 
     const { data: questions, isPending, error } = useFetch('http://localhost:8000/questions');
     const [submitted, setSubmitted] = useState({"trigger": false});
@@ -18,7 +18,9 @@ const Home = () => {
             */}
             {error && <div>{error}</div>}
             {isPending && <div>Loading...</div>}
-            {questions && <PoliticalTest 
+            {questions && <PoliticalTest
+                walletAddress={props.walletAddress}
+                status={props.status} 
                 questions={questions} 
                 setSubmitted={setSubmitted}
                 submitted={submitted}

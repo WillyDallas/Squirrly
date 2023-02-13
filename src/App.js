@@ -7,17 +7,24 @@ import { useState } from 'react';
 function App() {
 
   const [walletAddress, setWallet] = useState("");
+  const [status, setStatus] = useState("");
 
   return (
     <Router>
       <div className="App">
       <Navbar 
-      setWallet={setWallet}
+        walletAddress={walletAddress}
+        status={status}
+        setWallet={setWallet}
+        setStatus={setStatus}
       />
       <div className="content">
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home 
+              walletAddress={walletAddress}
+              status={status}
+            />
           </Route>
           <Route path="*">
             <NotFound />
