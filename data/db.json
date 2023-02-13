@@ -646,7 +646,7 @@
     {
       "category": "Democratic People's Republic of Korea",
       "name": "Acorn Jong-un",
-      "quote": "Dear leader is always right.",
+      "quote": "Dear leader knows best.",
       "position": {
           "econ": 1,
           "dipl": -1,
@@ -678,8 +678,8 @@
     },
     {
       "category": "Religious Anarcho-Capitalism",
-      "name": "The Dali Squirrel",
-      "quote": "Selling your wares at the market is a sin, but selling your soul to the devil is a business opportunity.",
+      "name": "Pecan Paul",
+      "quote": "The revolution is now.",
       "position": {
           "econ": -1,
           "dipl": -1,
@@ -711,7 +711,7 @@
     },
     {
       "category": "Global Shamanism",
-      "name": "The Great Squirrel",
+      "name": "The Dali Squirrel",
       "quote": "*mumbles in rock language before the UN*",
       "position": {
           "econ": 1,
@@ -733,7 +733,7 @@
     },
     {
       "category": "Stalinism",
-      "name": "Joseph Squirrlin",
+      "name": "Ferret Stalin",
       "quote": "In Soviet Russia, porn watches you!",
       "position": {
           "econ": 1,
@@ -756,7 +756,7 @@
     {
       "category": "Global Totalitarianism",
       "name": "Napoléon Acornaparte",
-      "qoute": "The end justifies the means",
+      "qoute": "All Hail Caesar!",
       "position": {
           "econ": 1,
           "dipl": 1,
@@ -776,9 +776,9 @@
       }
     },
     {
-      "category": "Nativism",
-      "name": "David Kook",
-      "quote": "We must protect our culture!",
+      "category": "Anarcho-syndicist commune",
+      "name": "Dennis",
+      "quote": "Help Help! I'm Being Repressed!",
       "position": {
           "econ": 1,
           "dipl": -1,

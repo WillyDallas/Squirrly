@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import useFetch from "./utils/useFetch";
 
 /*
 Old Push 
+
+    https://cdn.discordapp.com/attachments/1064440128518504509/1074220530359611433/BeauTroxclair.eth_full_body_cute_squirrel_in_16_bit_pixel_art_s_6bd04c61-a692-485b-b02d-f2e40a204629.png
 
  const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,23 +35,9 @@ const handleClick = () => {
 */
 
 const Results = (obj) => {
-
-    const { data: ideologies, isPending, error } = useFetch('http://localhost:8000/ideologies');
-
     
     const [testFlag, setTestFlag] = useState(false); 
 
-    const sortAndReduce = (arr) => {
-        let arrSet = new Set(arr);
-        let newArr = []
-        arrSet.forEach((num) => {
-            newArr.push(Number(num));
-        });
-        
-        return newArr.sort(function(a,b){
-            return a - b;
-        });
-    }
 
     const fourDimensionalDistance = (a, b) => {
         const a1 = a.econ, b1 = b.econ;
@@ -75,14 +62,11 @@ const Results = (obj) => {
             return a.distance - b.distance;
         });
         return closestArrSorted;
-
-        //TODO: Limit to 3 closest ideologies
-        //TODO: If there is a tie, return all of them
     }
 
 
     useEffect(() => {
-        if(ideologies){
+        if(obj.ideologies){
             console.log(obj);
             let userPosition = {
                 "econ": obj.answers.econ/obj.totals.econ,
@@ -91,9 +75,7 @@ const Results = (obj) => {
                 "scty": obj.answers.scty/obj.totals.scty
             }
             console.log(userPosition);
-            const matches = findClosestIdeology(userPosition, ideologies);
-            let testMatch = findClosestIdeology({econ: 0.8461538461538461, dipl: 0.6888888888888889, govt: 0.6640625, scty: 0.8544520547945206}, ideologies);
-            console.log(testMatch);
+            const matches = findClosestIdeology(userPosition, obj.ideologies);
             console.log(matches);
         }
     }, [testFlag])
@@ -102,11 +84,9 @@ const Results = (obj) => {
     
     return (
         <div className="results">
-            {error && <div>{error}</div>}
-            {isPending && <div>Loading...</div>}
-            {!error && !isPending && <div className="testResults">
+            <div className="testResults">
                 <h1>Test Results</h1>
-            </div>}
+            </div>
             {<button className="refreshButton" onClick={() => testFlag ? setTestFlag(false): setTestFlag(true)}>Refresh</button>} <br/>
         </div>
     );

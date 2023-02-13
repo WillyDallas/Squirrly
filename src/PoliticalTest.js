@@ -1,6 +1,10 @@
 import AskQuestion from "./AskQuestion"
 import {useState, useEffect} from "react";
+import useFetch from "./utils/useFetch";
+import Results from "./Results";
 const PoliticalTest = (obj) => {
+
+    const { data: ideologies, isPending, error } = useFetch('http://localhost:8000/ideologies');
 
     const testobj = {
         "questions":[
@@ -43,12 +47,20 @@ const PoliticalTest = (obj) => {
 
         <div className="political-test">
             <h2>Political Test</h2>
-            {obj.questions && <AskQuestion 
+            {error && <div>{error}</div>}
+            {isPending && <div>Loading...</div>}
+            {!obj.submitted.trigger && obj.questions && <AskQuestion 
                 questions={obj.questions}
                 total = {obj.questions.length} 
                 setSubmitted={obj.setSubmitted}
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
+            />}
+            {obj.submitted.trigger && <Results 
+                totals={obj.submitted.totals}
+                answers={obj.submitted.answers}
+                setPosition={obj.setPosition}
+                ideologies={ideologies}
             />}
             {/* <AskQuestion 
                 questions={testobj.questions}
