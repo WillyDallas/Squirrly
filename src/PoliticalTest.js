@@ -46,29 +46,35 @@ const PoliticalTest = (obj) => {
     return (  
 
         <div className="political-test">
-            <h2>Political Test</h2>
             {error && <div>{error}</div>}
             {isPending && <div>Loading...</div>}
-            {!obj.submitted.trigger && obj.questions && <AskQuestion 
+            {/* {
+            //Full Question Set
+            !obj.submitted.trigger && obj.questions && <AskQuestion 
                 questions={obj.questions}
                 total = {obj.questions.length} 
                 setSubmitted={obj.setSubmitted}
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
-            />}
-            {obj.submitted.trigger && <Results 
-                totals={obj.submitted.totals}
-                answers={obj.submitted.answers}
-                setPosition={obj.setPosition}
-                ideologies={ideologies}
-            />}
-            {/* <AskQuestion 
+            />} */}
+            {
+            //Test Question Set
+            !obj.submitted.trigger && <AskQuestion 
                 questions={testobj.questions}
                 total = {testobj.questions.length}
                 setSubmitted={obj.setSubmitted}
                 setCurrentQuestion={setCurrentQuestion}
                 currentQuestion={currentQuestion}
-            /> */}
+            />}
+            {obj.submitted.trigger && <Results
+                setSubmitted={obj.setSubmitted}
+                walletAddress={obj.walletAddress}
+                totals={obj.submitted.totals}
+                answers={obj.submitted.answers}
+                setPosition={obj.setPosition}
+                ideologies={ideologies}
+            />}
+            
         </div>
 
     );

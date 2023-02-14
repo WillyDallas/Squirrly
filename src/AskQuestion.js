@@ -12,6 +12,8 @@ const AskQuestion = (obj) => {
     const [sctyAnswers, setSctyAnswers] = useState([]);
 
     useEffect(() => {
+        let randomTest = Math.random();
+        console.log(randomTest);
     }, [obj.currentQuestion])
     
     const next_question = (value,move) => {
@@ -71,6 +73,24 @@ const AskQuestion = (obj) => {
         });
     }
 
+    const setDummyResults = () => {
+        obj.setSubmitted({
+            "trigger": true,
+            "answers": {
+                "econ": Math.random(),
+                "dipl": Math.random(),
+                "govt": Math.random(),
+                "scty": Math.random(),
+            },
+            "totals":{
+                "econ": Math.random() >= .5 ? 1 : -1,
+                "dipl": Math.random() >= .5 ? 1 : -1,
+                "govt": Math.random() >= .5 ? 1 : -1,
+                "scty": Math.random() >= .5 ? 1 : -1
+            } 
+        });   
+    }
+
     return ( 
         <div className="question">
                 {obj.currentQuestion < obj.total && <p className="question" id="question-text">{obj.questions[obj.currentQuestion].question}</p>}
@@ -79,9 +99,10 @@ const AskQuestion = (obj) => {
                 {obj.currentQuestion < obj.total && <button className="neutral" onClick={() => {next_question( 0.0,1)}}>Neutral/Unsure</button>} <br/>
                 {obj.currentQuestion < obj.total && <button className="disagree" onClick={() => {next_question(-0.5,1)}}>Disagree</button>} <br/>
                 {obj.currentQuestion < obj.total && <button className="stronglyDisagree" onClick={() => {next_question(-1.0,1)}}>Strongly Disagree</button>} <br/>
-                {obj.currentQuestion < obj.total && <button className="next" onClick={() => {next_question(0,1)}}>Next</button>}
-                {obj.currentQuestion === obj.total && <button className="Submit" onClick={() => {submitResults(obj.position)}}>Submit</button>}<br/>
-                {obj.currentQuestion > 0 && <button className="back" onClick={() => {next_question(0,-1)}}>Back</button>} <br/>
+                {obj.currentQuestion < obj.total && <button className="next" onClick={() => {next_question(0,1)}}>Next</button>} <br/>
+                {obj.currentQuestion === obj.total && <button className="Submit" onClick={() => {submitResults(obj.position)}}>Submit</button>} {obj.currentQuestion === obj.total &&<br/>}
+                {obj.currentQuestion > 0 && <button className="back" onClick={() => {next_question(0,-1)}}>Back</button>} {obj.currentQuestion > 0 && <br/>}
+                {<button className="Submit" onClick={() => {setDummyResults()}}>Random Test</button>}
             </div>
      );
 }

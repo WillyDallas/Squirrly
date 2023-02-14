@@ -3,13 +3,18 @@ import { connectWallet, getCurrentWalletConnected } from "./utils/interact";
 
 const Navbar = (props) => {
     
-    useEffect(async () => {
+    useEffect(() => {
+
+      async function walletFunction() {
         const { address, status } = await getCurrentWalletConnected();
 
         props.setWallet(address);
         props.setStatus(status);
 
         addWalletListener();
+      }
+
+      walletFunction();
     }, []);
     
     function addWalletListener() {

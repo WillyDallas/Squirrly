@@ -35,6 +35,8 @@ const handleClick = () => {
 */
 
 const Results = (obj) => {
+
+    const [matches, setMatches] = useState([]);
     
     const [testFlag, setTestFlag] = useState(false); 
 
@@ -64,6 +66,16 @@ const Results = (obj) => {
         return closestArrSorted;
     }
 
+    const tryAgain = () => {
+        obj.setSubmitted({
+            "trigger": false
+        }) 
+    }
+
+    const mint = () => {
+        console.log("Minted!");
+    }
+
 
     useEffect(() => {
         if(obj.ideologies){
@@ -75,7 +87,7 @@ const Results = (obj) => {
                 "scty": obj.answers.scty/obj.totals.scty
             }
             console.log(userPosition);
-            const matches = findClosestIdeology(userPosition, obj.ideologies);
+            setMatches(findClosestIdeology(userPosition, obj.ideologies));
             console.log(matches);
         }
     }, [testFlag])
@@ -86,8 +98,17 @@ const Results = (obj) => {
         <div className="results">
             <div className="testResults">
                 <h1>Test Results</h1>
+                {matches.length > 0 && 
+                <div className="possibleIdeologies">
+                    <h2>{`You got ${matches[0].name}!`}</h2>
+                    {/*dynamically return the asset from the Assets folder to go along with the results*/}
+                    <h3>{`You most closely alighn with ${matches[0].category}`}</h3>
+                    
+                </div>}
             </div>
             {<button className="refreshButton" onClick={() => testFlag ? setTestFlag(false): setTestFlag(true)}>Refresh</button>} <br/>
+            {<button className="refreshButton" onClick={() => tryAgain()}>Try Again</button>} <br/>
+            {<button className="mintButton" onClick={() => mint()}>Mint a Squirrel!</button>}
         </div>
     );
 }
