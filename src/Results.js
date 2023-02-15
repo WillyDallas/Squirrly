@@ -34,6 +34,8 @@ const handleClick = () => {
 
 */
 
+// const images = require.context('../Assets', true)
+
 const Results = (obj) => {
 
     const [matches, setMatches] = useState([]);
@@ -55,6 +57,7 @@ const Results = (obj) => {
             closestArr.push({
                 "category": rubric[i].category,
                 "name": rubric[i].name,
+                "image": rubric[i].image,
                 "quote": rubric[i].quote,
                 "position": rubric[i].position,
                 "distance": fourDimensionalDistance(position, rubric[i].position)
@@ -91,6 +94,9 @@ const Results = (obj) => {
             console.log(matches);
         }
     }, [testFlag])
+
+    
+      
     
     
     
@@ -99,10 +105,11 @@ const Results = (obj) => {
             <div className="testResults">
                 <h1>Test Results</h1>
                 {matches.length > 0 && 
-                <div className="possibleIdeologies">
+                <div className="MatchCard">
                     <h2>{`You got ${matches[0].name}!`}</h2>
+                    <img src={require(`../Assets/${matches[0].image}.png`)}/>
                     {/*dynamically return the asset from the Assets folder to go along with the results*/}
-                    <h3>{`You most closely alighn with ${matches[0].category}`}</h3>
+                    <h3>{`You most closely align with ${matches[0].category}`}</h3>
                     
                 </div>}
             </div>

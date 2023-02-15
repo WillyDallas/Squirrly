@@ -635,6 +635,7 @@
     {
       "category": "Nazism",
       "name": "Squirrel Hitler",
+      "image": "SquirrelHitler",
       "quote": "The only thing we learn from history is that we learn nothing from history.",
       "position": {
           "econ": -1,
@@ -645,7 +646,8 @@
     },
     {
       "category": "Democratic People's Republic of Korea",
-      "name": "Acorn Jong-un",
+      "name": "Acorn Jong-Un",
+      "image": "AcornJong-Un",
       "quote": "Dear leader knows best.",
       "position": {
           "econ": 1,
@@ -657,6 +659,7 @@
     {
       "category": "Globalist Totalitarian Capitalism",
       "name": "George Squirrelos",
+      "image": "GeorgeSquirrelos",
       "quote": "Progress is a crime.",
       "position": {
           "econ": -1,
@@ -668,6 +671,7 @@
     {
       "category": "Global Theocracy",
       "name": "Pope Scamper III",
+      "image": "PopeScamperIII",
       "quote": "Lenin would have made a great Pope.",
       "position": {
           "econ": 1,
@@ -679,6 +683,7 @@
     {
       "category": "Religious Anarcho-Capitalism",
       "name": "Pecan Paul",
+      "image": "PecanPaul",
       "quote": "The revolution is now.",
       "position": {
           "econ": -1,
@@ -690,6 +695,7 @@
     {
       "category": "Spiritual Commune",
       "name": "Jim Pinecones",
+      "image": "JimPinecones",
       "quote": "Don't drink the Kool-Aid.",
       "position": {
           "econ": 1,
@@ -701,6 +707,7 @@
     {
       "category": "Religious Anarchism",
       "name": "Leo Tolstoyster",
+      "image": "LoeTolstoyster",
       "quote": "The only true freedom is the freedom to serve God.",
       "position": {
           "econ": -1,
@@ -712,6 +719,7 @@
     {
       "category": "Global Shamanism",
       "name": "The Dali Squirrel",
+      "image": "TheDaliSquirrel",
       "quote": "*mumbles in rock language before the UN*",
       "position": {
           "econ": 1,
@@ -723,6 +731,7 @@
     {
       "category": "Objectivist Technocracy",
       "name": "Ayn Sandshrew",
+      "image": "AynSandshrew",
       "quote": "Who is John Galt?",
       "position": {
           "econ": -1,
@@ -733,7 +742,8 @@
     },
     {
       "category": "Stalinism",
-      "name": "Ferret Stalin",
+      "name": "Joseph Squirrlin",
+      "image": "JosephSquirrlin",
       "quote": "In Soviet Russia, porn watches you!",
       "position": {
           "econ": 1,
@@ -745,6 +755,7 @@
     {
       "category": "Global Surveillance Capitalism",
       "name": "Alvin Dulles",
+      "image": "AlvinDulles",
       "quote": "The Birds are Watching",
       "position": {
           "econ": -1,
@@ -756,6 +767,7 @@
     {
       "category": "Global Totalitarianism",
       "name": "Napoléon Acornaparte",
+      "image": "NapoleonAcornaparte",
       "qoute": "All Hail Caesar!",
       "position": {
           "econ": 1,
@@ -767,6 +779,7 @@
     {
       "category": "Anarchy",
       "name": "Noam Chompsky",
+      "image": "NoamChompsky",
       "quote": "Do as thou wilt shall be the whole of the law.",
       "position": {
           "econ": -1,
@@ -778,6 +791,7 @@
     {
       "category": "Anarcho-syndicist commune",
       "name": "Dennis",
+      "image": "Dennis",
       "quote": "Help Help! I'm Being Repressed!",
       "position": {
           "econ": 1,
@@ -788,7 +802,8 @@
     },
     {
       "category": "Galactic Trade Federation",
-      "name": "Newt Gunroy",
+      "name": "Newt Gunray",
+      "image": "NewtGunray",
       "quote": "We are the Federation. We are the future.",
       "position": {
           "econ": -1,
@@ -799,7 +814,8 @@
     },
     {
       "category": "Fully Automated Luxury Gay Space Communism",
-      "name": "Captain Jean-Luc Picardinal",
+      "name": "Captain Jean-Luc Pecan",
+      "image": "CaptainJeanLucPecan",
       "quote": "In space, no one can hear you cum in another man's mouth.",
       "position": {
           "econ": 1,
