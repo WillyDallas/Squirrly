@@ -1,5 +1,17 @@
 import { useState, useEffect } from 'react';
 
+//This module should use PUSH protocol to send messages to users who have minted the necessary NFT that a new question 
+//has been added to the test. 
+
+//This module should also serve the question to the website, allow users to log in, and allow users to submit their answer.
+
+//This process should happen over the course of x days, one question per day
+
+//After the time alloted by the smart contract has passed, the module should sort users into teams based on their 
+//position on the political spectrum, and then allow them to form coalitions with other users to take control of the game treasury funds
+
+
+
 const AskQuestion = (obj) => {
 
     const [econTotals, setEconTotals] = useState([]);
