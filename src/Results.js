@@ -94,21 +94,14 @@ const Results = (obj) => {
             console.log(matches);
         }
     }, [testFlag])
-
-    
-      
-    
-    
     
     return (
         <div className="results">
             <div className="testResults">
-                <h1>Test Results</h1>
                 {matches.length > 0 && 
                 <div className="MatchCard">
                     <h2>{`You got ${matches[0].name}!`}</h2>
                     <img src={require(`../Assets/${matches[0].image}.png`)}/>
-                    {/*dynamically return the asset from the Assets folder to go along with the results*/}
                     <h3>{`You most closely align with ${matches[0].category}`}</h3>
                     
                 </div>}
