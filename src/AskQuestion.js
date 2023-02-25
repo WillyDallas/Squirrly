@@ -11,6 +11,8 @@ import { useState, useEffect } from 'react';
 //position on the political spectrum, and then allow them to form coalitions with other users to take control of the game treasury funds
 
 
+//ETHDenver 2023
+
 
 const AskQuestion = (obj) => {
 

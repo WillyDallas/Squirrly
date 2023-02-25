@@ -4,6 +4,8 @@ import NotFound from './NotFound';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useState } from 'react';
 
+//ETH Denver 2023
+
 function App() {
 
   const [walletAddress, setWallet] = useState("");

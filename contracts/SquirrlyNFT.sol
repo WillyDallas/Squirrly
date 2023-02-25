@@ -26,3 +26,44 @@ contract ExampleNFT is ERC721URIStorage, Ownable {
        return newItemId;
    }
 }
+
+
+
+/*
+******************************************
+NOTES
+******************************************
+
+******************************************
+mapping for whitelist
+******************************************
+
+mapping (address => bool) whiteList;
+
+
+******************************************
+constructor adds msg.sender to whitelist
+******************************************
+
+constructor(){
+    owner = msg.sender;
+    whiteList[owner] = true;
+}
+
+******************************************
+using a modifier function
+******************************************
+
+modifier onlyOwner {
+    require(msg.sender == owner, "Only owner can call this function.");
+    _;
+}
+
+function addToWhiteList(address _address) public onlyOwner {
+    whiteList[_address] = true;
+}
+
+******************************************
+
+
+*/

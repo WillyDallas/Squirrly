@@ -2,6 +2,9 @@ import AskQuestion from "./AskQuestion"
 import {useState, useEffect} from "react";
 import useFetch from "./utils/useFetch";
 import Results from "./Results";
+//ETH Denver 2023
+
+
 const PoliticalTest = (obj) => {
 
     const { data: ideologies, isPending, error } = useFetch('http://localhost:8000/ideologies');

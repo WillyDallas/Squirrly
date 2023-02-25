@@ -1,6 +1,9 @@
 /**
 * @type import('hardhat/config').HardhatUserConfig
 */
+
+//ETHDenver 2023
+
 require("@nomiclabs/hardhat-ethers");
 require('dotenv').config();
 const { PRIVATE_KEY } = process.env;

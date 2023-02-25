@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+//ETH Denver 2023
+
 const NotFound = () => {
     return (
         <div className="not-found">

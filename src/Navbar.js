@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { connectWallet, getCurrentWalletConnected } from "./utils/interact";
 
+//ETH Denver 2023
+
 const Navbar = (props) => {
     
     useEffect(() => {
