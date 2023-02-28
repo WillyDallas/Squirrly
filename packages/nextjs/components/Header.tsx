@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaucetButton } from "~~/components/scaffold-eth";
 import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKitCustomConnectButton";
-import { Bars3Icon, BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon, SparklesIcon, FireIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -50,6 +50,12 @@ export default function Header() {
         <NavLink href="/example-ui">
           <SparklesIcon className="h-4 w-4" />
           Example UI
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/scroll-ui">
+          <FireIcon className="h-4 w-4" />
+          Scroll UI
         </NavLink>
       </li>
     </>
