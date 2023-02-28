@@ -49,7 +49,7 @@ export default function Header() {
       <li>
         <NavLink href="/example-ui">
           <SparklesIcon className="h-4 w-4" />
-          Example UI
+          Game UI
         </NavLink>
       </li>
       <li>
