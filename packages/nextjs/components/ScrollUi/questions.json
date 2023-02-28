@@ -1,7 +1,7 @@
 
 [
     {
-      "question": "Oppression by Squirrly corporations is more of a concern than oppression by Squirrly governments.",
+      "question": "Oppression by corporations is more of a concern than oppression by governments.",
       "answerOptions": [
         { "answer": "Strongly Agree" },
         { "answer": "Agree" },
@@ -28,6 +28,29 @@
     {
         "question": "The government should be involved in the storage and distribution of acorns to protect Squirrlys.",
         "answerOptions": [
+            { "answer": "Strongly Agree" },
+            { "answer": "Agree" },
+            { "answer": "Neutral"},
+            { "answer": "Disagree" },
+            { "answer": "Strongly Disagree" }
+        ],
+        "effect": {
+            "econ": 10,
+            "dipl": 10,
+            "govt": -10,
+            "scty": -10
+        }
+      },
+    {
+        "question": "What types of tails are the best for Squirrlys",
+        "answerOptions": [
+            { "answer": "Bushy Tails" },
+            { "answer": "Skinny Tails" }
+        ]
+    },
+    {
+        "question": "The freer the market for acorns, the freer the Squirrlys.",
+        "answerOptions": [
           { "answer": "Strongly Agree" },
           { "answer": "Agree" },
           { "answer": "Neutral"},
@@ -40,21 +63,28 @@
           "govt": -10,
           "scty": -10
         }
-      },
-    {
-    "question": "What types of tails are the best for Squirrlys",
-    "answerOptions": [
-        { "answer": "Bushy Tails" },
-        { "answer": "Skinny Tails" }
-    ]
     },
     {
-      "question": "Which class in Tailwind is used to set flex direction of column?",
-      "answerOptions": [
-        { "answer": "col" },
-        { "answer": "col-flex" },
-        { "answer": "flex-col", "isCorrect": true },
-        { "answer": "None of the above" }
-      ]
+        "question": "Should Squirrlys show their beautiful teeth?",
+        "answerOptions": [
+            { "answer": "Yes" },
+            { "answer": "No" }
+        ]
+    },
+    {
+        "question": "Squirrlys from one tree should freely cooperate with Squirrlys from another tree.",
+        "answerOptions": [
+            { "answer": "Strongly Agree" },
+            { "answer": "Agree" },
+            { "answer": "Neutral"},
+            { "answer": "Disagree" },
+            { "answer": "Strongly Disagree" }
+        ],
+        "effect": {
+            "econ": 10,
+            "dipl": 10,
+            "govt": -10,
+            "scty": -10
+        }
     }
   ]

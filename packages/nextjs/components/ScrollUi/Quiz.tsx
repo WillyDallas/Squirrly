@@ -17,11 +17,8 @@ export default function Quiz() {
   };
 
   return (
-    <div className="flex flex-col justify-center">
-      <div className="flex flex-col items-center w-full">
-        <h4 className="mt-10 text-xl text-black/60">
-          Question {currentQuestion + 1} of {questions.length}
-        </h4>
+    <div className="flex flex-col justify-center h-full">
+      <div className="flex flex-col items-center w-full rounded-lg border border-sky-700 ht-96">
         <div className="mt-4 text-2xl text-black">{questions[currentQuestion].question}</div>
         <div className="mt-4 text-2xl text-black">
             {questions[currentQuestion].answerOptions && questions[currentQuestion].answerOptions.map((el, idx) => {
@@ -36,6 +33,9 @@ export default function Quiz() {
             Next
           </button>
         </div>
+        <h4 className="mt-10 text-xl text-black/60">
+          Question {currentQuestion + 1} of {questions.length}
+        </h4>
       </div>
     </div>
   );

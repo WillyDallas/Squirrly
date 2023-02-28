@@ -14,7 +14,7 @@ const ScrollUI: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Scaffold-eth App</title>
+        <title>Squirrly App</title>
         <meta name="description" content="Created with 🏗 scaffold-eth" />
       </Head>
 
