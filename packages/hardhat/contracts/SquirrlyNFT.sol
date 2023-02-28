@@ -14,10 +14,17 @@ contract SquirrlyNFT is ERC721, Ownable {
 
     constructor(address _owner) ERC721("Squirrly", "SQRL") {}
 
-    function safeMint(address to) public {
+    function safeMint(address to) public payable{
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
+    }
+
+    receive() external payable {
+    }
+
+    function withdraw() external onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
     }
 
 }
