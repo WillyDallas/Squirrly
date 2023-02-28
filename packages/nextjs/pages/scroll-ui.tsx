@@ -4,6 +4,7 @@ import { BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React, { use } from "react";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import Quiz from "~~/components/ScrollUi/Quiz";
 
 
 const ScrollUI: NextPage = () => {
@@ -21,7 +22,7 @@ const ScrollUI: NextPage = () => {
         <section className="w-full h-screen bg-sky-200 snap-start">Sky</section>
         <section className="w-full h-screen bg-green-200 snap-start">Canopy</section>
         <section className="w-full h-screen bg-amber-400 snap-start">Trees</section>
-        <section className="w-full h-screen bg-yellow-200 snap-start">Forrest Floor</section>
+        <section className="w-full h-screen bg-yellow-200 snap-start">{<Quiz />}</section>
       </main>
         
     </>
