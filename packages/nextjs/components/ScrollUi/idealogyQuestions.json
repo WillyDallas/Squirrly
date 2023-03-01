@@ -1,0 +1,39 @@
+
+[
+  {
+    "question": "Oppression by corporations is more of a concern than oppression by governments.",
+    "effect": {
+        "econ": 10,
+        "dipl": 0,
+        "govt": -5,
+        "scty": 0
+    }
+},
+{
+  "question": "Regardless of political opinions, it is important to side with your country.",
+  "effect": {
+      "econ": 0,
+      "dipl": -10,
+      "govt": -10,
+      "scty": -5
+  }
+},
+{
+  "question": "No cultures are superior to others.",
+  "effect": {
+      "econ": 0,
+      "dipl": 10,
+      "govt": 5,
+      "scty": 10
+  }
+},
+{
+  "question": "It is important that we further my group's goals above all others.",
+  "effect": {
+      "econ": -10,
+      "dipl": -10,
+      "govt": -10,
+      "scty": -10
+  }
+}
+]

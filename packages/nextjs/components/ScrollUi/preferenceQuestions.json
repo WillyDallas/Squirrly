@@ -1,0 +1,27 @@
+
+[
+    {
+      "question": "What color Squirrly is the cutest Squirrly",
+      "answerOptions": [
+        { "answer": "Red" },
+        { "answer": "Brown" },
+        { "answer": "Black" },
+        { "answer": "Brown" }
+      ]
+    },
+    {
+        "question": "What types of tails are the best for Squirrlys",
+        "answerOptions": [
+            { "answer": "Bushy Tails" },
+            { "answer": "Skinny Tails" }
+        ]
+    },
+    {
+        "question": "Should Squirrlys show their beautiful teeth?",
+        "answerOptions": [
+            { "answer": "Yes" },
+            { "answer": "No" }
+        ],
+        "answerType": "Fixed"
+    }
+  ]
