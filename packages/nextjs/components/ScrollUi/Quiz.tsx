@@ -36,9 +36,6 @@ export default function Quiz() {
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
-  const [userPosition, setUserPosition] = useState({});
-  const [userPreferences, setUserPreferences] = useState({});
-
   // store complex answers in arrays
   // store simple answers directly on userObject
   // store all calculate values on state
@@ -118,23 +115,12 @@ export default function Quiz() {
       govt: govtAnswers.reduce((a, b) => a + b, 0),
       scty: sctyAnswers.reduce((a, b) => a + b, 0),
     };
-    setUserPosition({
-      econ: answers.econ / totals.econ,
-      dipl: answers.dipl / totals.dipl,
-      govt: answers.govt / totals.govt,
-      scty: answers.scty / totals.scty,
-    });
     const positionObject = {
       econ: answers.econ / totals.econ,
       dipl: answers.dipl / totals.dipl,
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
     }
-    setUserPreferences({
-      color: preferences[0],
-      tail: preferences[1],
-      teeth: preferences[2]
-    })
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
