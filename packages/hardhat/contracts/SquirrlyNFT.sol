@@ -55,7 +55,6 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
     Squirrl[] public squirrls;
 
     constructor(address[] memory whiteList) ERC721("Squirrly", "SQRL") {
-        safeMint(msg.sender, 0, 0, 0, 0, 0, "Dev");
         for (uint i=0; i < whiteList.length; i++){
             safeMint(whiteList[i], 0, 0, 0, 0, 0, "Dev");
         }
