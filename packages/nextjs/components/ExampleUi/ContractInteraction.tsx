@@ -9,7 +9,7 @@ export default function ContractInteraction() {
   const [visible, setVisible] = useState(true);
   const [newGreeting, setNewGreeting] = useState("");
 
-  const { writeAsync, isLoading } = useScaffoldContractWrite("YourContract", "setGreeting", [newGreeting], "0.01");
+  const { writeAsync, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "setGreeting", [newGreeting], "0.01");
 
   return (
     <div className="flex bg-base-300 relative pb-10">
