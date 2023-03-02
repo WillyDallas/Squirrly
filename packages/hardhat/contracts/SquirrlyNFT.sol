@@ -49,14 +49,14 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         uint256 diplScore;
         uint256 govtScore;
         uint256 sctyScore;
-        string power;
+        string[] power;
     }
 
     Squirrl[] public squirrls;
 
     constructor(address[] memory whiteList) ERC721("Squirrly", "SQRL") {
         for (uint i=0; i < whiteList.length; i++){
-            safeMint(whiteList[i], 0, 0, 0, 0, 0, "Dev");
+            safeMint(whiteList[i], 0, 0, 0, 0, 0, ["Dev"]);
         }
     }
 
@@ -75,7 +75,7 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         uint256 dipl, 
         uint256 govt, 
         uint256 scty, 
-        string memory power) 
+        string[] memory power) 
         public payable{
         
         uint8 aux = uint8 (charId);
