@@ -3,6 +3,24 @@ import idealogyQuestions from "./idealogyQuestions.json";
 import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
 import { ForwardIcon, BackwardIcon } from "@heroicons/react/24/outline";
+import { FunctionFragment } from "ethers/lib/utils";
+import { Contract, utils, ethers } from "ethers";
+import { useContract, useProvider } from "wagmi";
+import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
+
+/**
+ * @param {Contract} contract
+ * @returns {FunctionFragment[]} array of function fragments
+ */
+
+/**
+ * @dev used to filter all readOnly functions with zero params
+ * @param {Contract} contract
+ * @param {FunctionFragment[]} contractMethodsAndVariables - array of all functions in the contract
+ * @param {boolean} refreshDisplayVariables refetch values
+ * @returns { methods: (JSX.Element | null)[] } array of DisplayVariable component
+ * which has corresponding input field for param type and button to read
+ */
 
 type Effect = {
   econ: number;
@@ -18,7 +36,31 @@ const dummmyEffect = {
   scty: 0,
 };
 
-export default function Quiz() {
+type TContractUIProps = {
+  contractName: string;
+  className?: string;
+};
+
+export default function Quiz({ contractName, className = "" }: TContractUIProps) {
+  
+  const provider = useProvider();
+  
+
+  let contractAddress = "";
+  let contractABI = [];
+  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
+  
+  if (deployedContractData) {
+    ({ address: contractAddress, abi: contractABI } = deployedContractData);
+  }
+
+  const contract: Contract | null = useContract({
+    address: contractAddress,
+    abi: contractABI,
+    signerOrProvider: provider,
+  })
+
+
   //const [loading, setLoading] = useState(false);
   //const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -120,24 +162,65 @@ export default function Quiz() {
       dipl: answers.dipl / totals.dipl,
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
-    }
+    };
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
-      teeth: preferences[2]
-    }
+      teeth: preferences[2],
+    };
     const userObject = {
       position: positionObject,
-      preferences: preferencesObject
-    }
-    console.log(userObject)
+      preferences: preferencesObject,
+    };
+    console.log(userObject);
   };
+
+  const getSafeMint = () => {
+    const provider = useProvider();
+  
+    let contractAddress = "";
+    let contractABI = [];
+    const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
+    if (deployedContractData) {
+      ({ address: contractAddress, abi: contractABI } = deployedContractData);
+    }
+  
+    const contract: Contract | null = useContract({
+      address: contractAddress,
+      abi: contractABI,
+      signerOrProvider: provider,
+    });
+  };
+
+  const mint = (contract: Contract | null) => {
+    
+    console.log(contract)
+
+    // address to, 
+    //     uint256 charId, 
+    //     uint256 econ, 
+    //     uint256 dipl, 
+    //     uint256 govt, 
+    //     uint256 scty, 
+    //     string memory power
+
+    const testObject = {
+      to: contract?.address,
+      charId: 1,
+      econ: 1,
+      dipl: 1,
+      govt: 1,
+      scty: 1,
+      power: 'charisma'
+    }
+    
+  }
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
-          <button onClick={() => createUserObject()}>mint</button>
+          <button onClick={() => mint(contract)}>mint</button>
         ) : (
           <div className="flex flex-col items-center">
             <div className="mt-4 text-xl text-black text-center">{questions[currentQuestion].question}</div>
