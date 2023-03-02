@@ -5,11 +5,13 @@ import Link from "next/link";
 import React, { use } from "react";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-
-
 const Home: NextPage = () => {
+<<<<<<< Updated upstream
 
   const { writeAsync: doCheckin } = useScaffoldContractWrite("YourContract", "checkin", null, "0.001");
+=======
+  const { writeAsync: doCheckin } = useScaffoldContractWrite("SquirrlyNFT", "checkin", null, "0.001");
+>>>>>>> Stashed changes
 
   return (
     <>
@@ -19,13 +21,15 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="flex items-center flex-col flex-grow pt-10">
-        <button className="btn btn-primary"
-        onClick={()=>{
-          doCheckin();
-        }}>Check In</button>
-      
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            doCheckin();
+          }}
+        >
+          Check In
+        </button>
       </div>
-        
     </>
   );
 };

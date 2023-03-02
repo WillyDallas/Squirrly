@@ -58,6 +58,12 @@ export default function Header() {
           Scroll UI
         </NavLink>
       </li>
+      <li>
+        <NavLink href="/Dashboard">
+          <FireIcon className="h-4 w-4" />
+          Dashboard
+        </NavLink>
+      </li>
     </>
   );
 
