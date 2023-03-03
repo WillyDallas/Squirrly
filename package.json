@@ -37,6 +37,8 @@
     "@chainlink/contracts": "^0.6.1",
     "@openzeppelin/contracts": "^4.6.0",
     "@openzeppelin/contracts-upgradeable": "^4.8.1",
+    "dotenv": "^16.0.3",
+    "fs": "^0.0.1-security",
     "nft.storage": "^7.0.3"
   }
 }
