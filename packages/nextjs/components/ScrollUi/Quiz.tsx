@@ -178,6 +178,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
         },
         body: JSON.stringify({ econ, dipl, govt, scty, powers }),
       });
+      console.log('construct api request')
       const data = await response.json();
       // return data,or set on state, or do something with it
       console.log("IPFS API Response", data);
