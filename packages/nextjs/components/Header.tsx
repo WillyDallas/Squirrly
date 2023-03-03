@@ -59,7 +59,7 @@ export default function Header() {
         </NavLink>
       </li>
       <li>
-        <NavLink href="/Dashboard">
+        <NavLink href="/dashboard">
           <FireIcon className="h-4 w-4" />
           Dashboard
         </NavLink>
