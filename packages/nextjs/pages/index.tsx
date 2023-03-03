@@ -8,7 +8,6 @@ import { useEffectOnce, useLocalStorage } from "usehooks-ts";
 import { useAutoConnect, useAccountBalance } from "~~/hooks/scaffold-eth";
 import { useAccount, useContractRead } from "wagmi";
 import { BigNumber } from "ethers";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { storeNFT } from "../utils/pushToIpfs.js";
 
 const API_KEY = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
@@ -38,7 +37,7 @@ const Home: NextPage = () => {
   // const balance = data ? data.toNumber() : null
   // console.log("balance", balance);
 
-  const callCheckOwnershipAPI = async param => {
+  const callCheckOwnershipAPI = async (param: any) => {
     try {
       const response = await fetch("./api/checkNFTOwnership", {
         method: "POST",
