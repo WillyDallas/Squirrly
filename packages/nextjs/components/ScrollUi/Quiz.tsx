@@ -83,9 +83,10 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     if (currentQuestion > 3) {
       setPreferences(preferences.slice(0, preferences.length - 1));
     }
-    if (currentQuestion <= 3) {
+    if (currentQuestion <= 4) {
       // remove last answer from answers array
-
+      // econAnswers.pop()
+      // setEconAnswers(econAnswers)
       setEconAnswers(econAnswers.slice(0, econAnswers.length - 1));
       setDiplAnswers(diplAnswers.slice(0, diplAnswers.length - 1));
       setGovtAnswers(govtAnswers.slice(0, govtAnswers.length - 1));
@@ -183,7 +184,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     //   positionObject.scty * multiplier,
     // );
     userParams.push(accountAddress, 1, 1, 1, 1, 1);
-    //console.log(userObject);
+    console.log(userObject);
     return userParams;
   };
 
