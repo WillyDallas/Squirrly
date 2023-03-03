@@ -77,6 +77,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
   const [preferences, setPreferences] = useState<string[]>([]);
 
   const { address: accountAddress } = useAccount();
+  const [mintParams, setMintParams] = useState<string[]>([]);
 
   const handlePrevious = () => {
     if (currentQuestion > 3) {
@@ -169,7 +170,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     try {
       const userObject = createUserObject();
       const { econ, dipl, govt, scty } = userObject.position;
-      const powers = [''];
+      const powers = '';
       const response = await fetch("./api/pushToIPFS", {
         method: "POST",
         headers: {
@@ -180,15 +181,27 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       const data = await response.json();
       // return data,or set on state, or do something with it
       console.log("IPFS API Response", data);
+      //return data;
     } catch (error) {
       console.log(error);
     }
   };
 
+  const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams, "1");
+
+  const mintWrapper = async () => {
+    // get CID
+    const CID = await get_IPFS_CID();
+    // set mintParams with address and CID
+    setMintParams([accountAddress, CID]);
+    // call mint
+    await mint();
+  }
+
   const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
   //const userParams = createUserParams();
 
-  //const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
+  
   const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
     args: [accountAddress],
   });
@@ -204,7 +217,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
             ) : (
               <p>Owner!</p>
             )} */}
-            <button onClick={() => get_IPFS_CID()}>send to ifps</button>
+            <button onClick={() => get_IPFS_CID()}>get CID</button>
           </div>
         ) : (
           <div className="flex flex-col items-center">
