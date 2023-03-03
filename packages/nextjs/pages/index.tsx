@@ -59,7 +59,6 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="flex items-center flex-col flex-grow pt-10">
-
         <button
           className="btn btn-primary"
           onClick={() => {
@@ -68,30 +67,6 @@ const Home: NextPage = () => {
         >
           Check In
         </button>
-      </div>
-
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            checkIsCollectionOwner(accountAddress, deployedContractData?.address);
-          }}
-        >
-          Check Ownership
-        </button>
-      <button
-        className="btn btn-primary"
-        onClick={async () => {
-          const econ = 10;
-          const dipl = 20;
-          const govt = 30;
-          const scty = 40;
-          const powers = ["super jump", "invisibility"];
-          await storeNFT(econ, dipl, govt, scty, powers, API_KEY);
-        }}
-      >
-        Store NFT
-      </button>
       </div>
     </>
   );
