@@ -79,14 +79,11 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
   const { address: accountAddress } = useAccount();
 
   const handlePrevious = () => {
-    console.log('current question', currentQuestion)
     if (currentQuestion > 3) {
       setPreferences(preferences.slice(0, preferences.length - 1));
     }
     if (currentQuestion <= 4) {
       // remove last answer from answers array
-      // econAnswers.pop()
-      // setEconAnswers(econAnswers)
       setEconAnswers(econAnswers.slice(0, econAnswers.length - 1));
       setDiplAnswers(diplAnswers.slice(0, diplAnswers.length - 1));
       setGovtAnswers(govtAnswers.slice(0, govtAnswers.length - 1));
@@ -98,13 +95,9 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       setGovtTotals(govtTotals.slice(0, govtTotals.length - 1));
       setSctyTotals(sctyTotals.slice(0, sctyTotals.length - 1));
     }
-    console.log("preferences", preferences);
-    console.log("econ answers", econAnswers);
-    console.log("econ totals", econTotals);
     const prevQues = numberAnswers > 6 ? 6 : currentQuestion - 1;
     if (currentQuestion) prevQues >= 0 && setCurrentQuestion(prevQues);
     const prevAnswer = numberAnswers <= 0 ? 0 : numberAnswers - 1;
-    console.log("prevAnswer", prevAnswer);
     setNumberAnswers(prevAnswer);
   };
 
@@ -131,20 +124,16 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     setGovtTotals([...govtTotals, effect.govt]);
     setSctyTotals([...sctyTotals, effect.scty]);
 
-    console.log("econ answers", econAnswers);
-    console.log("econ totals", econTotals);
-
     handleNext();
     increaseNumberAnswers();
   };
   const handlePreferenceClick = (answer: string) => {
     setPreferences([...preferences, answer]);
-    console.log("preferences", preferences);
     handleNext();
     increaseNumberAnswers();
   };
 
-  const createUserParams = () => {
+  const createUserObject = () => {
     const totals = {
       econ: econTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
       dipl: diplTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
@@ -163,7 +152,6 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
     };
-    //console.log("position object", positionObject);
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
@@ -173,23 +161,15 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       position: positionObject,
       preferences: preferencesObject,
     };
-    const userParams = [];
-    const multiplier = Math.pow(10, 18);
-    // userParams.push(
-    //   accountAddress,
-    //   1,
-    //   positionObject.econ * multiplier,
-    //   positionObject.dipl * multiplier,
-    //   positionObject.govt * multiplier,
-    //   positionObject.scty * multiplier,
-    // );
-    userParams.push(accountAddress, 1, 1, 1, 1, 1);
     console.log(userObject);
-    return userParams;
+    return userObject;
   };
 
-  const get_IPFS_CID = async (econ: number, dipl: number, govt: number, scty: number, powers: string) => {
+  const get_IPFS_CID = async () => {
     try {
+      const userObject = createUserObject();
+      const { econ, dipl, govt, scty } = userObject.position;
+      const powers = [''];
       const response = await fetch("./api/pushToIPFS", {
         method: "POST",
         headers: {
@@ -206,9 +186,9 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
   };
 
   const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
-  const userParams = createUserParams();
+  //const userParams = createUserParams();
 
-  const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
+  //const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
   const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
     args: [accountAddress],
   });
@@ -224,8 +204,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
             ) : (
               <p>Owner!</p>
             )} */}
-            <button onClick={() => get_IPFS_CID(1, 1, 1, 1, "charisma")}>mint</button>
-            {isLoading && <p>Loading</p>}
+            <button onClick={() => get_IPFS_CID()}>send to ifps</button>
           </div>
         ) : (
           <div className="flex flex-col items-center">
