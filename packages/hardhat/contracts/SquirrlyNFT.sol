@@ -12,6 +12,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
+
     using Counters for Counters.Counter;
     using Strings for uint256;
 
