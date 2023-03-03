@@ -6,12 +6,7 @@ import React, { use } from "react";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
-<<<<<<< Updated upstream
-
-  const { writeAsync: doCheckin } = useScaffoldContractWrite("YourContract", "checkin", null, "0.001");
-=======
   const { writeAsync: doCheckin } = useScaffoldContractWrite("SquirrlyNFT", "checkin", null, "0.001");
->>>>>>> Stashed changes
 
   return (
     <>
