@@ -37,6 +37,7 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         _unpause();
     }
 
+
     function safeMint(address to, string memory URI) public payable{
         require (balanceOf(to) == 0, "You already have a Squirrly");
         uint256 tokenId = tokenIdCounter.current();
@@ -47,30 +48,11 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         tokenIdCounter.increment();
     }
 
-    // function finishQuest(string memory tokenURI, unint256 tokenID) public {
-    //     string memory uri = Base64.encode(
-    //         bytes(
-    //             string(
-    //                 abi.encodePacked(
-    //                     '{"name": "RunnerNFT",',
-    //                     '"description": "This is your character",',
-    //                     '"image": "', runners[tokenId].image, '",'
-    //                     '"attributes": [',
-    //                     '{',
-    //                         '"trait_type": "distance",',
-    //                         '"value": ', runners[tokenId].distance.toString(),
-    //                         '}]'
-    //                     '}'
-    //                 )
-    //             )
-    //         )
-    //     );
-    //     // Create token URI
-    //     string memory finalTokenURI = string(
-    //         abi.encodePacked("data:application/json;base64,", uri)
-    //     );
-    //     _setTokenURI(tokenId, finalTokenURI);
-    // }
+    function finishQuest(string memory newURI, uint256 tokenId) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId), "You are not the owner of this Squirrly");
+        _setTokenURI(tokenId, newURI);
+        lastQuest[tokenId] = block.number;
+    }
 
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
