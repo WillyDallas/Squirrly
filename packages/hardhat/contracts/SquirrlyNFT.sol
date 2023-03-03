@@ -12,142 +12,67 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
-  using Counters for Counters.Counter;
-  using Strings for uint256;
 
-  // Suirrel images
-  // 0: OG Squirrly
-  // 1-4: Red Squirrels
-  // 5-7: Grey Squirrels
-  // 8-11: Brown Squirrels
-  // 12: Black Squirrels
+    using Counters for Counters.Counter;
+    using Strings for uint256;
 
-  string[] Squirrels = [
-    "https://bafybeibhk3puxk66eikjovtvxji5g3dyh4jwsfqu7bpfmvzue6idanu3wm.ipfs.w3s.link/OGSquirrly.png",
-    "https://bafybeieflqbgwdz7fybslb47fnqpxewstkbmbwow5qzudqibstg2iejhfy.ipfs.w3s.link/RedSquirrell02.png",
-    "https://bafybeidjonqogmhdhxz6kvnazmr375de3x2uwcwkkaeu5nnq2axm2meaau.ipfs.w3s.link/RedSquirrell01.png",
-    "https://bafybeihokp4fuqqlr3jr2z4z7wfwzgrgwku2gixwhzxlwoktqyrfmlo5mu.ipfs.w3s.link/RedSquirrell03.png",
-    "https://bafybeicfvkbavjevw7zp5gsmecbte7m5jdutuh6qywmxblef26mmzylsry.ipfs.w3s.link/RedSquirrell00.png",
-    "https://bafybeig2ug5p6dig6zvn7kgmpxi5z2zhp72gtmb6676ktuka3qgkav2gpu.ipfs.w3s.link/GreySquirrell00.png",
-    "https://bafybeicskl5pb2m5qgbg77x4dilstkakiayi4slhqyzzhaf6fwzl5ssuba.ipfs.w3s.link/GreySquirrell01.png",
-    "https://bafybeigsnwd4bhjlchlhjwmixtnaxyz247eqllh46gleytij5renca6rma.ipfs.w3s.link/GreySquirrell02.png",
-    "https://bafybeibgdwyyqr5ypu356g2vbi2uyvnq7i5ck7qij5uwahwhidrtd2wxlq.ipfs.w3s.link/BrownSquirrell00.png",
-    "https://bafybeiey2n3bx2eigpkvn6tckdgjrxes3d6psm7ewqkjbstknest642u4i.ipfs.w3s.link/BrownSquirrell02.png",
-    "https://bafybeiea7jnvwhjc5kpux4hy6qi2d7pxdwhbawmdenoulxovway3zl72l4.ipfs.w3s.link/BrownSquirrell01.png",
-    "https://bafybeifsliudtkcvvvfhypanfzxlyobrtipqvrzreoqd72dnmdv6gnrvyy.ipfs.w3s.link/BrownSquirrell03.png",
-    "https://bafybeigkbiz2c5kk57m2kpvtkxutzfidh2bc7vwexuspswb3vligqi27me.ipfs.w3s.link/BlackSquirrel00.png"
-  ];
+    mapping (uint256 => uint256) public lastQuest;
 
-  Counters.Counter public tokenIdCounter;
+    //KNOWN ISSUE: this mapping needs to be updated upon transfer
+    mapping (address => uint256) public addressLookup;
 
-  struct Squirrl {
-    string image;
-    uint256 econScore;
-    uint256 diplScore;
-    uint256 govtScore;
-    uint256 sctyScore;
-    string[] powers;
-  }
 
-  Squirrl[] public squirrls;
+    Counters.Counter public tokenIdCounter;
 
-  constructor(address[] memory whiteList) ERC721("Squirrly", "SQRL") {
-    for (uint256 i = 0; i < whiteList.length; i++) {
-      safeMint(whiteList[i], 0, 0, 0, 0, 0);
+    constructor(address[] memory whiteList) ERC721("Squirrly", "SQRL") {
+        for (uint i=0; i < whiteList.length; i++){
+            safeMint(whiteList[i], "hello");
+        }
     }
-  }
 
-  function pause() public onlyOwner {
-    _pause();
-  }
+    function pause() public onlyOwner {
+        _pause();
+    }
 
-  function unpause() public onlyOwner {
-    _unpause();
-  }
+    function unpause() public onlyOwner {
+        _unpause();
+    }
 
-  function safeMint(address to, string uri) public payable {
-    string memory yourCharacterImage = Squirrels[charId];
 
-    squirrls.push(Squirrl(yourCharacterImage, econ, dipl, govt, scty, new string[](0)));
+    function safeMint(address to, string memory URI) public payable{
+        require (balanceOf(to) == 0, "You already have a Squirrly");
+        uint256 tokenId = tokenIdCounter.current();
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, URI);
+        lastQuest[tokenId] = 0;
+        addressLookup[to] = tokenId;
+        tokenIdCounter.increment();
+    }
 
-    uint256 tokenId = tokenIdCounter.current();
-    string memory uri = Base64.encode(
-      bytes(
-        string(
-          abi.encodePacked(
-            '{"name": "SquirrlyNFT",',
-            '"description": "So innocent and cute...",',
-            '"image": "',
-            squirrls[tokenId].image,
-            '",'
-            '"attributes": [',
-            "{",
-            '"trait_type": "econScore",',
-            '"value": ',
-            squirrls[tokenId].econScore.toString(),
-            "}",
-            "{",
-            '"trait_type": "govtScore",',
-            '"value": ',
-            squirrls[tokenId].govtScore.toString(),
-            "}",
-            '"trait_type": "diplScore",',
-            '"value": ',
-            squirrls[tokenId].diplScore.toString(),
-            "}",
-            '"trait_type": "sctyScore",',
-            '"value": ',
-            squirrls[tokenId].sctyScore.toString(),
-            "}"
-          )
-        )
-      )
-    );
-    string memory finalTokenURI = string(abi.encodePacked("data:application/json;base64,", uri));
-    tokenIdCounter.increment();
-    _safeMint(to, tokenId);
-    _setTokenURI(tokenId, finalTokenURI);
-  }
+    function finishQuest(string memory newURI, uint256 tokenId) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId), "You are not the owner of this Squirrly");
+        _setTokenURI(tokenId, newURI);
+        lastQuest[tokenId] = block.number;
+    }
 
-  // This function will update the NFT metadata
-  // function run(uint256 tokenId, uint256 distance) public {
-  //     runners[tokenId].distance += distance;
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
 
-  //     string memory uri = Base64.encode(
-  //         bytes(
-  //             string(
-  //                 abi.encodePacked(
-  //                     '{"name": "RunnerNFT",',
-  //                     '"description": "This is your character",',
-  //                     '"image": "', runners[tokenId].image, '",'
-  //                     '"attributes": [',
-  //                     '{',
-  //                         '"trait_type": "distance",',
-  //                         '"value": ', runners[tokenId].distance.toString(),
-  //                         '}]'
-  //                     '}'
-  //                 )
-  //             )
-  //         )
-  //     );
-  //     // Create token URI
-  //     string memory finalTokenURI = string(
-  //         abi.encodePacked("data:application/json;base64,", uri)
-  //     );
-  //     _setTokenURI(tokenId, finalTokenURI);
-  // }
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
 
-  function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
-    super._burn(tokenId);
-  }
+    receive() external payable {
+    }
 
-  function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-    return super.tokenURI(tokenId);
-  }
+    function withdraw() external onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
+    }
 
-  receive() external payable {}
-
-  function withdraw() external onlyOwner {
-    payable(msg.sender).transfer(address(this).balance);
-  }
 }
