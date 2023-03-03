@@ -13,14 +13,19 @@ const dashboard = () => {
             </div>
           </Link>
           <h1 className="mt-16">Introspectrological Monitor</h1>
-          <div className="bg-amber-100 h-72 w-72 m-2">
-            <Image
-              src="/squirrel-icon.png"
-              width={20}
-              height={20}
-              alt="squirrel-icon"
-              className="rounded-full relative top-8 left-36"
-            />
+          <div className="border h-96 w-96 m-2 text-center relative">
+            <h2 className="mt-4 relative">Economy</h2>
+            <div className="h-3 w-3 bg-amber-500 z-10 m-0 top-12 mt-0 rounded-full left-36 absolute"></div>
+            <div className="bg-amber-300 left-[64px] absolute top-12 mt-1 w-64 h-1 rounded-lg"></div>
+            <h2 className="mt-1">Diplomacy</h2>
+            <div className="h-2 w-2 bg-amber-500 rounded-full left-36 relative"></div>
+            <div className="bg-amber-300 mt-1 h-1 left-[64px] relative w-64 mb-0 rounded-lg"></div>
+            <h2 className="mt-8">Government</h2>
+            <div className="h-2 w-2 bg-amber-500 rounded-full left-36 relative"></div>
+            <div className="bg-amber-300 mt-1 h-1 left-[64px] relative w-64 mb-0 rounded-lg"></div>
+            <h2 className="mt-8">Society</h2>
+            <div className="h-2 w-2 bg-amber-500 rounded-full left-36 relative"></div>
+            <div className="bg-amber-300 mt-1 h-1 left-[64px] relative w-64 mb-0 rounded-lg"></div>
           </div>
           <div className="bg-amber-100 h-72 w-72 mt-12 m-16">
             <Image src="/squirrely.jpg" width={288} height={288} alt="squirrel" />
