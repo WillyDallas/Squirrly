@@ -79,11 +79,13 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
   const { address: accountAddress } = useAccount();
 
   const handlePrevious = () => {
+    console.log('current question', currentQuestion)
     if (currentQuestion > 3) {
       setPreferences(preferences.slice(0, preferences.length - 1));
     }
     if (currentQuestion <= 3) {
       // remove last answer from answers array
+
       setEconAnswers(econAnswers.slice(0, econAnswers.length - 1));
       setDiplAnswers(diplAnswers.slice(0, diplAnswers.length - 1));
       setGovtAnswers(govtAnswers.slice(0, govtAnswers.length - 1));
@@ -98,10 +100,10 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     console.log("preferences", preferences);
     console.log("econ answers", econAnswers);
     console.log("econ totals", econTotals);
-    const prevQues = currentQuestion - 1;
+    const prevQues = numberAnswers > 6 ? 6 : currentQuestion - 1;
     if (currentQuestion) prevQues >= 0 && setCurrentQuestion(prevQues);
     const prevAnswer = numberAnswers <= 0 ? 0 : numberAnswers - 1;
-    console.log('prevAnswer', prevAnswer)
+    console.log("prevAnswer", prevAnswer);
     setNumberAnswers(prevAnswer);
   };
 
@@ -160,7 +162,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
     };
-    console.log('position object', positionObject)
+    //console.log("position object", positionObject);
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
@@ -171,7 +173,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       preferences: preferencesObject,
     };
     const userParams = [];
-    const multiplier = Math.pow(10, 18)
+    const multiplier = Math.pow(10, 18);
     // userParams.push(
     //   accountAddress,
     //   1,
@@ -180,30 +182,48 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     //   positionObject.govt * multiplier,
     //   positionObject.scty * multiplier,
     // );
-    userParams.push(
-      accountAddress,
-      1,
-      1,
-      1,
-      1,
-      1,
-    );
+    userParams.push(accountAddress, 1, 1, 1, 1, 1);
     //console.log(userObject);
-      return userParams
+    return userParams;
+  };
+
+  const get_IPFS_CID = async (econ: number, dipl: number, govt: number, scty: number, powers: string) => {
+    try {
+      const response = await fetch("./api/pushToIPFS", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ econ, dipl, govt, scty, powers }),
+      });
+      const data = await response.json();
+      // return data,or set on state, or do something with it
+      console.log("IPFS API Response", data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
-  const userParams = createUserParams()
+  const userParams = createUserParams();
 
-  const { writeAsync, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
-  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {args: [accountAddress]});
+  const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
+    args: [accountAddress],
+  });
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            {balanceOf?.toNumber() == 0 ? <button onClick={writeAsync}>mint</button> : <p>Owner!</p>}
+            {/* {balanceOf?.toNumber() == 0 ? <button onClick={mint}>mint</button> : <p>Owner!</p>} */}
+            {/* {balanceOf?.toNumber() == 0 ? (
+              <button onClick={() => get_IPFS_CID(1, 1, 1, 1, "charisma")}>mint</button>
+            ) : (
+              <p>Owner!</p>
+            )} */}
+            <button onClick={() => get_IPFS_CID(1, 1, 1, 1, "charisma")}>mint</button>
             {isLoading && <p>Loading</p>}
           </div>
         ) : (
