@@ -5,9 +5,9 @@ import questions from "./questions.json";
 import { ForwardIcon, BackwardIcon } from "@heroicons/react/24/outline";
 import { FunctionFragment } from "ethers/lib/utils";
 import { Contract, utils, ethers } from "ethers";
-import { useContract, useProvider, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContract, useProvider, useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 /**
  * @param {Contract} contract
@@ -76,9 +76,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
-  // store complex answers in arrays
-  // store simple answers directly on userObject
-  // store all calculate values on state
+  const { address: accountAddress } = useAccount();
 
   const handlePrevious = () => {
     if (currentQuestion > 3) {
@@ -102,7 +100,8 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     console.log("econ totals", econTotals);
     const prevQues = currentQuestion - 1;
     if (currentQuestion) prevQues >= 0 && setCurrentQuestion(prevQues);
-    const prevAnswer = numberAnswers - 1;
+    const prevAnswer = numberAnswers <= 0 ? 0 : numberAnswers - 1;
+    console.log('prevAnswer', prevAnswer)
     setNumberAnswers(prevAnswer);
   };
 
@@ -142,7 +141,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     increaseNumberAnswers();
   };
 
-  const createUserObject = () => {
+  const createUserParams = () => {
     const totals = {
       econ: econTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
       dipl: diplTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
@@ -161,6 +160,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
     };
+    console.log('position object', positionObject)
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
@@ -170,64 +170,40 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       position: positionObject,
       preferences: preferencesObject,
     };
-    console.log(userObject);
+    const userParams = [];
+    const multiplier = Math.pow(10, 18)
+    // userParams.push(
+    //   accountAddress,
+    //   1,
+    //   positionObject.econ * multiplier,
+    //   positionObject.dipl * multiplier,
+    //   positionObject.govt * multiplier,
+    //   positionObject.scty * multiplier,
+    // );
+    userParams.push(
+      accountAddress,
+      1,
+      1,
+      1,
+      1,
+      1,
+    );
+    //console.log(userObject);
+      return userParams
   };
 
-  // const getSafeMint = () => {
-  //   const provider = useProvider();
+  const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
+  const userParams = createUserParams()
 
-  //   let contractAddress = "";
-  //   let contractABI = [];
-  //   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  //   if (deployedContractData) {
-  //     ({ address: contractAddress, abi: contractABI } = deployedContractData);
-  //   }
-
-  //   const contract: Contract | null = useContract({
-  //     address: contractAddress,
-  //     abi: contractABI,
-  //     signerOrProvider: provider,
-  //   });
-  // };
-
-  // const mint = (contract: Contract | null) => {
-
-  //   // address to,
-  //   //     uint256 charId,
-  //   //     uint256 econ,
-  //   //     uint256 dipl,
-  //   //     uint256 govt,
-  //   //     uint256 scty,
-  //   //     string memory power
-
-  //   const testObject = {
-  //     to: contract?.address,
-  //     charId: 1,
-  //     econ: 1,
-  //     dipl: 1,
-  //     govt: 1,
-  //     scty: 1,
-  //     power: "charisma",
-  //   };
-  //   contract?.safeMint(testObject)
-  // };
-
-  const testParams = ["0x8555eB2a135074B67e95C5bA9297b0229e90B5A3", 1, 1, 1, 1, 1, "charisma"];
-
-  const writeWrapper = () => {
-    console.log("async");
-    console.log(contract?.address);
-    writeAsync();
-  };
-
-  const { writeAsync, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", testParams, "1");
+  const { writeAsync, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {args: [accountAddress]});
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            <button onClick={writeWrapper}>mint</button>
+            {balanceOf?.toNumber() == 0 ? <button onClick={writeAsync}>mint</button> : <p>Owner!</p>}
             {isLoading && <p>Loading</p>}
           </div>
         ) : (
@@ -295,9 +271,9 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
           <button onClick={handlePrevious} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
             <BackwardIcon className="h-8 w-8" />
           </button>
-          <button onClick={handleNext} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
+          {/* <button onClick={handleNext} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
             <ForwardIcon className="h-8 w-8" />
-          </button>
+          </button> */}
         </div>
       </div>
       <h4 className="mt-10 text-xl text-black/60">

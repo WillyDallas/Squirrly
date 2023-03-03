@@ -19,18 +19,36 @@ const Home: NextPage = () => {
   //const { balance } = useAccountBalance(accountAddress);
   //console.log('balance', balance)
 
-  //const balanceOf = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", ['0x8555eB2a135074B67e95C5bA9297b0229e90B5A3']);
-  //const { data: balanceOf } = useContractRead(deployedContractData?.address, 'balanceOf', accountAddress)
-
-  const balanceRead = useContractRead({
-    address: deployedContractData?.address,
-    abi: deployedContractData?.abi,
-    functionName: 'balanceOf',
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
     args: [accountAddress],
-  })
-  const { data } = balanceRead
-  const balance = data ? data.toNumber() : null
-  console.log("balance", balance);
+  });
+  console.log("balanceOf", balanceOf);
+  console.log("number", balanceOf?.toNumber());
+  // const balanceRead = useContractRead({
+  //   address: deployedContractData?.address,
+  //   abi: deployedContractData?.abi,
+  //   functionName: 'balanceOf',
+  //   args: [accountAddress],
+  // })
+  // const { data } = balanceRead
+  // const balance = data ? data.toNumber() : null
+  // console.log("balance", balance);
+
+  const callCheckOwnershipAPI = async param => {
+    try {
+      const response = await fetch("./api/checkNFTOwnership", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ param }),
+      });
+      const data = await response.json();
+      // return data,or set on state, or do something with it
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
