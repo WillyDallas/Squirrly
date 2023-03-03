@@ -17,8 +17,8 @@ const dashboard = () => {
             <h2 className="mt-4 relative">Economy</h2>
             <div className="h-3 w-3 bg-amber-500 z-10 m-0 top-12 mt-0 rounded-full left-36 absolute"></div>
             <div className="bg-amber-300 left-[64px] absolute top-12 mt-1 w-64 h-1 rounded-lg"></div>
-            <h2 className="mt-1">Diplomacy</h2>
-            <div className="h-2 w-2 bg-amber-500 rounded-full left-36 relative"></div>
+            <h2 className="mt-12">Diplomacy</h2>
+            <div className="h-3 w-3 bg-amber-500 z-10 m-0 top-25 mt-0 rounded-full left-36 absolute"></div>
             <div className="bg-amber-300 mt-1 h-1 left-[64px] relative w-64 mb-0 rounded-lg"></div>
             <h2 className="mt-8">Government</h2>
             <div className="h-2 w-2 bg-amber-500 rounded-full left-36 relative"></div>
