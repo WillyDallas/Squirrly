@@ -3,6 +3,25 @@ import idealogyQuestions from "./idealogyQuestions.json";
 import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
 import { ForwardIcon, BackwardIcon } from "@heroicons/react/24/outline";
+import { FunctionFragment } from "ethers/lib/utils";
+import { Contract, utils, ethers } from "ethers";
+import { useContract, useProvider, useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
+import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+
+/**
+ * @param {Contract} contract
+ * @returns {FunctionFragment[]} array of function fragments
+ */
+
+/**
+ * @dev used to filter all readOnly functions with zero params
+ * @param {Contract} contract
+ * @param {FunctionFragment[]} contractMethodsAndVariables - array of all functions in the contract
+ * @param {boolean} refreshDisplayVariables refetch values
+ * @returns { methods: (JSX.Element | null)[] } array of DisplayVariable component
+ * which has corresponding input field for param type and button to read
+ */
 
 type Effect = {
   econ: number;
@@ -18,7 +37,28 @@ const dummmyEffect = {
   scty: 0,
 };
 
-export default function Quiz() {
+type TContractUIProps = {
+  contractName: string;
+  className?: string;
+};
+
+export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: TContractUIProps) {
+  const provider = useProvider();
+
+  let contractAddress = "";
+  let contractABI = [];
+  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
+
+  if (deployedContractData) {
+    ({ address: contractAddress, abi: contractABI } = deployedContractData);
+  }
+
+  const contract: Contract | null = useContract({
+    address: contractAddress,
+    abi: contractABI,
+    signerOrProvider: provider,
+  });
+
   //const [loading, setLoading] = useState(false);
   //const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -36,9 +76,7 @@ export default function Quiz() {
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
-  // store complex answers in arrays
-  // store simple answers directly on userObject
-  // store all calculate values on state
+  const { address: accountAddress } = useAccount();
 
   const handlePrevious = () => {
     if (currentQuestion > 3) {
@@ -62,7 +100,8 @@ export default function Quiz() {
     console.log("econ totals", econTotals);
     const prevQues = currentQuestion - 1;
     if (currentQuestion) prevQues >= 0 && setCurrentQuestion(prevQues);
-    const prevAnswer = numberAnswers - 1;
+    const prevAnswer = numberAnswers <= 0 ? 0 : numberAnswers - 1;
+    console.log('prevAnswer', prevAnswer)
     setNumberAnswers(prevAnswer);
   };
 
@@ -102,7 +141,7 @@ export default function Quiz() {
     increaseNumberAnswers();
   };
 
-  const createUserObject = () => {
+  const createUserParams = () => {
     const totals = {
       econ: econTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
       dipl: diplTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
@@ -120,24 +159,53 @@ export default function Quiz() {
       dipl: answers.dipl / totals.dipl,
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
-    }
+    };
+    console.log('position object', positionObject)
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
-      teeth: preferences[2]
-    }
+      teeth: preferences[2],
+    };
     const userObject = {
       position: positionObject,
-      preferences: preferencesObject
-    }
-    console.log(userObject)
+      preferences: preferencesObject,
+    };
+    const userParams = [];
+    const multiplier = Math.pow(10, 18)
+    // userParams.push(
+    //   accountAddress,
+    //   1,
+    //   positionObject.econ * multiplier,
+    //   positionObject.dipl * multiplier,
+    //   positionObject.govt * multiplier,
+    //   positionObject.scty * multiplier,
+    // );
+    userParams.push(
+      accountAddress,
+      1,
+      1,
+      1,
+      1,
+      1,
+    );
+    //console.log(userObject);
+      return userParams
   };
+
+  const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
+  const userParams = createUserParams()
+
+  const { writeAsync, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {args: [accountAddress]});
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
-          <button onClick={() => createUserObject()}>mint</button>
+          <div>
+            {balanceOf?.toNumber() == 0 ? <button onClick={writeAsync}>mint</button> : <p>Owner!</p>}
+            {isLoading && <p>Loading</p>}
+          </div>
         ) : (
           <div className="flex flex-col items-center">
             <div className="mt-4 text-xl text-black text-center">{questions[currentQuestion].question}</div>
@@ -203,9 +271,9 @@ export default function Quiz() {
           <button onClick={handlePrevious} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
             <BackwardIcon className="h-8 w-8" />
           </button>
-          <button onClick={handleNext} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
+          {/* <button onClick={handleNext} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
             <ForwardIcon className="h-8 w-8" />
-          </button>
+          </button> */}
         </div>
       </div>
       <h4 className="mt-10 text-xl text-black/60">

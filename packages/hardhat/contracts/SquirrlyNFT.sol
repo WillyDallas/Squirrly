@@ -37,8 +37,7 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         "https://bafybeiey2n3bx2eigpkvn6tckdgjrxes3d6psm7ewqkjbstknest642u4i.ipfs.w3s.link/BrownSquirrell02.png",
         "https://bafybeiea7jnvwhjc5kpux4hy6qi2d7pxdwhbawmdenoulxovway3zl72l4.ipfs.w3s.link/BrownSquirrell01.png",
         "https://bafybeifsliudtkcvvvfhypanfzxlyobrtipqvrzreoqd72dnmdv6gnrvyy.ipfs.w3s.link/BrownSquirrell03.png",
-        "https://bafybeigkbiz2c5kk57m2kpvtkxutzfidh2bc7vwexuspswb3vligqi27me.ipfs.w3s.link/BlackSquirrel00.png",
-        "https://bafybeih3l3bguz6e7cowfedyyggwibm253bjv35oxhmckjkgi6vrwmhbkm.ipfs.w3s.link/SquirrelHitler.png"
+        "https://bafybeigkbiz2c5kk57m2kpvtkxutzfidh2bc7vwexuspswb3vligqi27me.ipfs.w3s.link/BlackSquirrel00.png"
     ];
 
     Counters.Counter public tokenIdCounter;
@@ -49,15 +48,14 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         uint256 diplScore;
         uint256 govtScore;
         uint256 sctyScore;
-        string power;
+        string[] powers;
     }
 
     Squirrl[] public squirrls;
 
     constructor(address[] memory whiteList) ERC721("Squirrly", "SQRL") {
-        safeMint(msg.sender, 0, 0, 0, 0, 0, "Dev");
         for (uint i=0; i < whiteList.length; i++){
-            safeMint(whiteList[i], 0, 0, 0, 0, 0, "Dev");
+            safeMint(whiteList[i], 0, 0, 0, 0, 0);
         }
     }
 
@@ -69,21 +67,11 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         _unpause();
     }
 
-    function safeMint(
-        address to, 
-        uint256 charId, 
-        uint256 econ, 
-        uint256 dipl, 
-        uint256 govt, 
-        uint256 scty, 
-        string memory power) 
-        public payable{
+    function safeMint(address to, string uri) public payable{
         
-        uint8 aux = uint8 (charId);
-        require( (aux >= 0) && (aux <= 13), "invalid charId");
         string memory yourCharacterImage = Squirrels[charId];
 
-        squirrls.push(Squirrl(yourCharacterImage, econ, dipl, govt, scty, power));
+        squirrls.push(Squirrl(yourCharacterImage, econ, dipl, govt, scty, new string[](0)));
 
         uint256 tokenId = tokenIdCounter.current();
         string memory uri = Base64.encode(
@@ -107,10 +95,6 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
                         '}',
                             '"trait_type": "sctyScore",',
                             '"value": ', squirrls[tokenId].sctyScore.toString(),
-                        '}',
-                            '"trait_type": "power",',
-                            '"value": ', squirrls[tokenId].power,
-                            '}]'
                         '}'
                     )
                 )

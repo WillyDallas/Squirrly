@@ -14,14 +14,14 @@ export default function ContractData() {
   const containerRef = useRef<HTMLDivElement>(null);
   const greetingRef = useRef<HTMLDivElement>(null);
 
-  const { data: totalCounter } = useScaffoldContractRead<BigNumber>("YourContract", "totalCounter");
+  const { data: totalCounter } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "totalCounter");
 
   const { data: currentGreeting, isLoading: isGreetingLoading } = useScaffoldContractRead<string>(
-    "YourContract",
+    "SquirrlyNFT",
     "greeting",
   );
 
-  useScaffoldEventSubscriber("YourContract", "GreetingChange", (greetingSetter, newGreeting, premium, value) => {
+  useScaffoldEventSubscriber("SquirrlyNFT", "GreetingChange", (greetingSetter, newGreeting, premium, value) => {
     console.log(greetingSetter, newGreeting, premium, value);
   });
 
