@@ -144,7 +144,7 @@ export default function Quiz() {
     try {
       const userObject = createUserObject();
       const { econ, dipl, govt, scty } = userObject.position;
-      const powers = '';
+      const powers = "";
       const response = await fetch("./api/pushToIPFS", {
         method: "POST",
         headers: {
@@ -165,7 +165,7 @@ export default function Quiz() {
 
   const mintWrapper = async () => {
     try {
-       // get CID
+      // get CID
       const CID = await get_IPFS_CID();
       //console.log('cid', CID)
       // set mintParams with address and CID
@@ -173,15 +173,13 @@ export default function Quiz() {
       // call mint
       await mint();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-   
-  }
+  };
 
   //const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
   //const userParams = createUserParams();
 
-  
   const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
     args: [accountAddress],
   });
@@ -191,13 +189,16 @@ export default function Quiz() {
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            {balanceOf?.toNumber() == 0 ? <button onClick={mintWrapper}>mint wrapper</button> : <p>Owner!</p>}
+            {balanceOf?.toNumber() && balanceOf?.toNumber() == 0 ? (
+              <button onClick={mintWrapper}>mint wrapper</button>
+            ) : (
+              <p>Owner!</p>
+            )}
             {/* {balanceOf?.toNumber() == 0 ? (
               <button onClick={() => get_IPFS_CID(1, 1, 1, 1, "charisma")}>mint</button>
             ) : (
               <p>Owner!</p>
             )} */}
-            
           </div>
         ) : (
           <div className="flex flex-col items-center">
