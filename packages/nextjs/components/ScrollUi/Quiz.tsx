@@ -1,27 +1,12 @@
-import { use, useEffect, useRef, useState } from "react";
-import idealogyQuestions from "./idealogyQuestions.json";
-import preferenceQuestions from "./preferenceQuestions.json";
+import { useState } from "react";
+// import idealogyQuestions from "./idealogyQuestions.json";
+// import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
-import { ForwardIcon, BackwardIcon } from "@heroicons/react/24/outline";
-import { FunctionFragment } from "ethers/lib/utils";
-import { Contract, utils, ethers } from "ethers";
-import { useContract, useProvider, useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
-import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { BackwardIcon } from "@heroicons/react/24/outline";
+import { BigNumber } from "ethers";
+import { useAccount } from "wagmi";
+//import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-
-/**
- * @param {Contract} contract
- * @returns {FunctionFragment[]} array of function fragments
- */
-
-/**
- * @dev used to filter all readOnly functions with zero params
- * @param {Contract} contract
- * @param {FunctionFragment[]} contractMethodsAndVariables - array of all functions in the contract
- * @param {boolean} refreshDisplayVariables refetch values
- * @returns { methods: (JSX.Element | null)[] } array of DisplayVariable component
- * which has corresponding input field for param type and button to read
- */
 
 type Effect = {
   econ: number;
@@ -37,27 +22,16 @@ const dummmyEffect = {
   scty: 0,
 };
 
-type TContractUIProps = {
-  contractName: string;
-  className?: string;
-};
+export default function Quiz() {
+  //const provider = useProvider();
 
-export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: TContractUIProps) {
-  const provider = useProvider();
+  // let contractAddress = "";
+  // let contractABI = [];
+  // const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
 
-  let contractAddress = "";
-  let contractABI = [];
-  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-
-  if (deployedContractData) {
-    ({ address: contractAddress, abi: contractABI } = deployedContractData);
-  }
-
-  const contract: Contract | null = useContract({
-    address: contractAddress,
-    abi: contractABI,
-    signerOrProvider: provider,
-  });
+  // if (deployedContractData) {
+  //   ({ address: contractAddress, abi: contractABI } = deployedContractData);
+  // }
 
   //const [loading, setLoading] = useState(false);
   //const [questions, setQuestions] = useState([]);
@@ -187,7 +161,7 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     }
   };
 
-  const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams, "1");
+  const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams, "1");
 
   const mintWrapper = async () => {
     try {
