@@ -15,7 +15,6 @@ const dashboard = () => {
     <div className="bg-green-100 h-full">
       <div className="flex-col items-center justify-center">
         <div className="flex flex-col justify-center items-center mt-12">
-          <h1 className="text-4xl mb-12">Hello, {squirrlData.name}</h1>
           {/* Play Scenario */}
           <Link href="/">
             <div className="bg-amber-700 h-16 w-36 text-white text-xl rounded-lg text-center justify-center flex items-center">
@@ -33,7 +32,7 @@ const dashboard = () => {
                 style={{ left: `${convertAttr(squirrlData.attributes.econScore)}` }}
               ></div>
               <div className="bg-amber-300 left-[64px] absolute top-[54px] mt-1 w-64 h-1 rounded-lg"></div>
-              <div className="flex mt-[20px] mb-0 justify-between text-amber-800">
+              <div className="flex mt-[24px] mb-0 justify-between text-amber-800">
                 <h3 className="">Market</h3>
                 <h3 className="text-right">Planned</h3>
               </div>
@@ -45,7 +44,7 @@ const dashboard = () => {
                 style={{ left: `${convertAttr(squirrlData.attributes.diplScore)}` }}
               ></div>
               <div className="bg-amber-300 top-[130px] mt-1 h-1 left-[64px] absolute w-64 mb-0 rounded-lg"></div>
-              <div className="flex m-0 justify-between  text-amber-700">
+              <div className="flex m-0 mt-2 justify-between  text-amber-700">
                 <h3 className="">Isolation</h3>
                 <h3 className="text-right">Global</h3>
               </div>
@@ -57,7 +56,7 @@ const dashboard = () => {
                 style={{ left: `${convertAttr(squirrlData.attributes.govtScore)}` }}
               ></div>
               <div className="bg-amber-300 mt-1 h-1 left-[64px] absolute top-[206px] w-64 mb-0 rounded-lg"></div>
-              <div className="flex m-0 justify-between text-amber-600">
+              <div className="flex mt-0 justify-between text-amber-600">
                 <h3 className="">Liberty</h3>
                 <h3 className="text-right">Order</h3>
               </div>
@@ -69,7 +68,7 @@ const dashboard = () => {
                 style={{ left: `${convertAttr(squirrlData.attributes.sctyScore)}` }}
               ></div>
               <div className="bg-amber-300 mt-1 h-1 left-[64px] absolute top-[282px] w-64 mb-0 rounded-lg"></div>
-              <div className="flex mt-[20px] justify-between text-amber-500">
+              <div className="flex mt-[18px] justify-between text-amber-500">
                 <h3 className="">Traditional</h3>
                 <h3 className="text-right">Progressive</h3>
               </div>
