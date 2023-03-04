@@ -18,21 +18,6 @@ const Home: NextPage = () => {
     args: [accountAddress],
   });
 
-  const callCheckOwnershipAPI = async (param: any) => {
-    try {
-      const response = await fetch("./api/checkNFTOwnership", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ param }),
-      });
-      const data = await response.json();
-      // return data,or set on state, or do something with it
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <>
       <Head>
