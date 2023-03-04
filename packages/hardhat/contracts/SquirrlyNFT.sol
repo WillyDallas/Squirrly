@@ -12,11 +12,11 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
-
     using Counters for Counters.Counter;
     using Strings for uint256;
 
     mapping (uint256 => uint256) public lastQuest;
+    mapping (uint256 => bool) public isQuestComplete;
 
     //KNOWN ISSUE: this mapping needs to be updated upon transfer
     mapping (address => uint256) public addressLookup;
@@ -41,12 +41,18 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
 
     function safeMint(address to, string memory URI) public payable{
         require (balanceOf(to) == 0, "You already have a Squirrly");
+        require (msg.sender == to, "You can only mint a Squirrly for yourself");
         uint256 tokenId = tokenIdCounter.current();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, URI);
         lastQuest[tokenId] = 0;
+        isQuestComplete[tokenId] = true;
         addressLookup[to] = tokenId;
         tokenIdCounter.increment();
+    }
+
+    function getLastQuest(uint256 tokenId) public view returns (uint256){
+        return lastQuest[tokenId];
     }
 
     function finishQuest(string memory newURI, uint256 tokenId) public {
