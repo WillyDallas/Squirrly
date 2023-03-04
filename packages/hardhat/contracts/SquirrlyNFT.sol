@@ -24,10 +24,7 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
 
     Counters.Counter public tokenIdCounter;
 
-    constructor(address[] memory whiteList) ERC721("Squirrly", "SQRL") {
-        for (uint i=0; i < whiteList.length; i++){
-            safeMint(whiteList[i], "hello");
-        }
+    constructor(address owner) ERC721("Squirrly", "SQRL") {
     }
 
     function pause() public onlyOwner {
@@ -41,7 +38,7 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
 
     function safeMint(address to, string memory URI) public payable{
         require (balanceOf(to) == 0, "You already have a Squirrly");
-        require (msg.sender == to, "You can only mint a Squirrly for yourself");
+        require (to == msg.sender, "You can only mint a Squirrly for yourself");
         uint256 tokenId = tokenIdCounter.current();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, URI);
@@ -51,9 +48,9 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
         tokenIdCounter.increment();
     }
 
-    function getLastQuest(uint256 tokenId) public view returns (uint256){
-        return lastQuest[tokenId];
-    }
+    // function getLastQuest(uint256 tokenId) public view returns (uint256){
+    //     return lastQuest[tokenId];
+    // }
 
     function finishQuest(string memory newURI, uint256 tokenId) public {
         require(_isApprovedOrOwner(msg.sender, tokenId), "You are not the owner of this Squirrly");
