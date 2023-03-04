@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { NFTStorage } from 'nft.storage'
+import { NFTStorage, File } from 'nft.storage'
 import { NextApiRequest, NextApiResponse } from "next"; 
 
 const API_KEY = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY || ''
+const client = new NFTStorage({ token: API_KEY });
 
 async function getImage(url: string) {  
     const r = await fetch(url)
@@ -32,7 +33,8 @@ const storeNFT = async (req: NextApiRequest, res: NextApiResponse) => {
         const image = await getImage(squirrels[0]);
         console.log('image', image)
         const nft = {
-            image,
+            // image,
+            image: new File([image], 'BlackSquirrel00.png', {type: 'image/png'}),
             name: "SquirrlyNFT",
             description: "Just a cute lil Squirrel that don't know nuffin' 'bout politics.",
             attributes: {
@@ -44,7 +46,7 @@ const storeNFT = async (req: NextApiRequest, res: NextApiResponse) => {
             }
         }
         console.log('nft', nft)
-        const client = new NFTStorage({ token: API_KEY });
+        
         const metadata = await client.store(nft);
         
         console.log('NFT data stored!')
