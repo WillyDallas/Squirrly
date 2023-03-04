@@ -178,11 +178,10 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
         },
         body: JSON.stringify({ econ, dipl, govt, scty, powers }),
       });
-      console.log('construct api request')
       const data = await response.json();
       // return data,or set on state, or do something with it
-      console.log("IPFS API Response", data);
-      //return data;
+      //console.log("IPFS API Response", data);
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -191,15 +190,21 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
   const { writeAsync: mint, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams, "1");
 
   const mintWrapper = async () => {
-    // get CID
-    const CID = await get_IPFS_CID();
-    // set mintParams with address and CID
-    setMintParams([accountAddress, CID]);
-    // call mint
-    await mint();
+    try {
+       // get CID
+      const CID = await get_IPFS_CID();
+      //console.log('cid', CID)
+      // set mintParams with address and CID
+      setMintParams([accountAddress, CID]);
+      // call mint
+      await mint();
+    } catch (error) {
+      console.log(error)
+    }
+   
   }
 
-  const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
+  //const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
   //const userParams = createUserParams();
 
   
@@ -212,13 +217,13 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            {/* {balanceOf?.toNumber() == 0 ? <button onClick={mint}>mint</button> : <p>Owner!</p>} */}
+            {balanceOf?.toNumber() == 0 ? <button onClick={mintWrapper}>mint wrapper</button> : <p>Owner!</p>}
             {/* {balanceOf?.toNumber() == 0 ? (
               <button onClick={() => get_IPFS_CID(1, 1, 1, 1, "charisma")}>mint</button>
             ) : (
               <p>Owner!</p>
             )} */}
-            <button onClick={() => get_IPFS_CID()}>get CID</button>
+            
           </div>
         ) : (
           <div className="flex flex-col items-center">

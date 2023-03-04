@@ -31,7 +31,6 @@ const storeNFT = async (req: NextApiRequest, res: NextApiResponse) => {
             "https://bafybeigkbiz2c5kk57m2kpvtkxutzfidh2bc7vwexuspswb3vligqi27me.ipfs.w3s.link/BlackSquirrel00.png"
         ];
         const image = await getImage(squirrels[0]);
-        console.log('image', image)
         const nft = {
             // image,
             image: new File([image], 'BlackSquirrel00.png', {type: 'image/png'}),
@@ -45,7 +44,6 @@ const storeNFT = async (req: NextApiRequest, res: NextApiResponse) => {
                 powers: req.body.powers,
             }
         }
-        console.log('nft', nft)
         
         const metadata = await client.store(nft);
         
