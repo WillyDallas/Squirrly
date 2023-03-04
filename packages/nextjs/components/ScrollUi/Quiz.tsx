@@ -189,7 +189,7 @@ export default function Quiz() {
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            {balanceOf?.toNumber() && balanceOf?.toNumber() == 0 ? (
+            {accountAddress && balanceOf?.toNumber() == 0 ? (
               <button onClick={mintWrapper}>mint wrapper</button>
             ) : (
               <p>Owner!</p>
