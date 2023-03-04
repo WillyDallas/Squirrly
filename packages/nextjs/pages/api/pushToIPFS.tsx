@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { NFTStorage, File } from 'nft.storage'
+import { NFTStorage, File } from 'nft.storage' //import error in vercel
 import { NextApiRequest, NextApiResponse } from "next"; 
 
 const API_KEY = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY || ''
