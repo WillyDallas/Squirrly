@@ -167,7 +167,8 @@ export default function Quiz() {
     try {
       // get CID
       const CID = await get_IPFS_CID();
-      //console.log('cid', CID)
+      console.log('cid`', CID);
+      console.log(accountAddress);
       // set mintParams with address and CID
       setMintParams([accountAddress, CID]);
       // call mint
