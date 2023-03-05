@@ -7,8 +7,8 @@ import React from "react";
 import Quiz from "~~/components/ScrollUi/Quiz";
 import Hero from "~~/components/Hero";
 import Description from "~~/components/Description";
-import Image from 'next/image'
-import squirrely from '../public/squirrely.jpg'
+import Image from "next/image";
+import squirrely from "../public/squirrely.jpg";
 
 const ScrollUI: NextPage = () => {
   //const { writeAsync: doCheckin } = useScaffoldContractWrite("YourContract", "checkin", null, "0.001");
@@ -21,7 +21,7 @@ const ScrollUI: NextPage = () => {
       </Head>
 
       <main className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
-        <section className="w-full h-screen bg-[url('/landing_desk.jpg')] bg-cover bg-top mt-10 snap-start">
+        <section className="w-full h-screen mb-30 bg-cover bg-[url('/landing_mobile.jpg')] md:bg-[url('/landing_desk.jpg')] md:bg-cover bg-top mt-10 snap-start">
           <Hero />
         </section>
         <section className="w-full h-screen bg-gradient-to-r from-yellow-300 to-green-700 bg-top snap-start">
@@ -35,9 +35,14 @@ const ScrollUI: NextPage = () => {
         </section>
         {/* <section className="w-full h-screen bg-amber-400 snap-start">Trees</section> */}
         <section className="w-full h-screen bg-top snap-start">
-          <div>
-            {/* <Image src={squirrely} width="250" height="250" alt="pixel art squirrel"/> */}
-            {<Quiz />}
+          <div className="flex flex-row items-center content-center justify-items-start">
+            <div className="w-4/12 flex flex-col items-center">
+              <div>
+                <Image src={squirrely} width="250" height="250" alt="pixel art squirrel" />
+              </div>
+            </div>
+
+            <div className="w-8/12">{<Quiz />}</div>
           </div>
         </section>
       </main>
