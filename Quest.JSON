@@ -2,8 +2,41 @@
     "Phase": [
         {
             "prompt":{
-                "backgroundImage":
-            }
+                "backgroundImage": "bafybeic5hmnbmct5ur5xmhzmxk6otzpvqguflhp42joak6zfqzrghtkuoa",
+                "text":[
+                    ""
+
+                ]
+            },
+            "answers":[
+                {
+                    "text":"",
+                    "impact":{
+                        "econ":0,
+                        "govt":0,
+                        "dipl":0,
+                        "scty":0
+                    }
+                },
+                {
+                    "text":"",
+                    "impact":{
+                        "econ":0,
+                        "govt":0,
+                        "dipl":0,
+                        "scty":0
+                    }
+                },
+                {
+                    "text":"",
+                    "impact":{
+                        "econ":0,
+                        "govt":0,
+                        "dipl":0,
+                        "scty":0
+                    }
+                }
+            ]
         }
     ]
 }
