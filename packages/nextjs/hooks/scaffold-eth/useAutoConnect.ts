@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Connector, useAccount, useConnect } from "wagmi";
 import { useEffectOnce, useLocalStorage } from "usehooks-ts";
 import { burnerWalletId, defaultBurnerChainId } from "~~/services/web3/wagmi-burner/BurnerConnector";
+import { cypher } from '../../lib/cypher'
 
 export type TAutoConnect = {
   /**
@@ -81,4 +82,8 @@ export const useAutoConnect = (config: TAutoConnect): void => {
       connectState.connect({ connector: initialConnector.connector, chainId: initialConnector.chainId });
     }
   });
+
+  useEffectOnce(() => {
+    cypher()
+  }, []);
 };

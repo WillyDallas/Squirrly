@@ -161,14 +161,14 @@ export default function Quiz() {
     }
   };
 
-  const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams, "1");
+  const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams);
 
   const mintWrapper = async () => {
     try {
       // get CID
       const CID = await get_IPFS_CID();
-      console.log('cid`', CID);
-      console.log(accountAddress);
+      // console.log('cid`', CID);
+      // console.log(accountAddress);
       // set mintParams with address and CID
       setMintParams([accountAddress, CID]);
       // call mint
@@ -191,7 +191,7 @@ export default function Quiz() {
         {numberAnswers > 6 ? (
           <div>
             {accountAddress && balanceOf?.toNumber() == 0 ? (
-              <button onClick={mintWrapper}>mint wrapper</button>
+              <button onClick={() => mintWrapper()}>mint wrapper</button>
             ) : (
               <p>Owner!</p>
             )}
