@@ -3,10 +3,10 @@ import { useState } from "react";
 // import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
 import { BackwardIcon } from "@heroicons/react/24/outline";
-import { BigNumber } from "ethers";
+// import { BigNumber } from "ethers";
 import { useAccount } from "wagmi";
 //import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
-import { useScaffoldContractWrite, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 type Effect = {
   econ: number;
@@ -161,14 +161,15 @@ export default function Quiz() {
     }
   };
 
-  const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams, "1");
+  //KNOWN ERROR: mint is failing because it of a problem with the await .then implementation??
+  const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams);
 
   const mintWrapper = async () => {
     try {
       // get CID
       const CID = await get_IPFS_CID();
-      console.log('cid`', CID);
-      console.log(accountAddress);
+      // console.log('cid`', CID);
+      // console.log(accountAddress);
       // set mintParams with address and CID
       setMintParams([accountAddress, CID]);
       // call mint
@@ -181,25 +182,16 @@ export default function Quiz() {
   //const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
   //const userParams = createUserParams();
 
-  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
-    args: [accountAddress],
-  });
+  // const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
+  //   args: [accountAddress],
+  // });
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            {accountAddress && balanceOf?.toNumber() == 0 ? (
               <button onClick={mintWrapper}>mint wrapper</button>
-            ) : (
-              <p>Owner!</p>
-            )}
-            {/* {balanceOf?.toNumber() == 0 ? (
-              <button onClick={() => get_IPFS_CID(1, 1, 1, 1, "charisma")}>mint</button>
-            ) : (
-              <p>Owner!</p>
-            )} */}
           </div>
         ) : (
           <div className="flex flex-col items-center">
