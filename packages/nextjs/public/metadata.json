@@ -1,0 +1,12 @@
+{
+  "name": "SquirrlyNFT",
+  "description": "Just a cute lil Squirrel that don't know nuffin' about politics.",
+  "attributes": {
+    "econScore": 94,
+    "diplScore": 23,
+    "govtScore": 76,
+    "sctyScore": 11,
+    "powers": ["test", "test2"]
+  },
+  "image": "ipfs://bafybeicprrdvdvf2y5yyle4qw7466fa76gadccqkn4g2tb36xnmu2kua74/blob"
+}
