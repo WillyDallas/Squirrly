@@ -1,15 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import React, { use } from "react";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+//import { BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
+//import Link from "next/link";
+import React from "react";
+//import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import Quiz from "~~/components/ScrollUi/Quiz";
 import Hero from "~~/components/Hero";
 import Description from "~~/components/Description";
 
 const ScrollUI: NextPage = () => {
-  const { writeAsync: doCheckin } = useScaffoldContractWrite("YourContract", "checkin", null, "0.001");
+  //const { writeAsync: doCheckin } = useScaffoldContractWrite("YourContract", "checkin", null, "0.001");
 
   return (
     <>

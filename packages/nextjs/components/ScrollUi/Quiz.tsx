@@ -1,27 +1,12 @@
-import { use, useEffect, useRef, useState } from "react";
-import idealogyQuestions from "./idealogyQuestions.json";
-import preferenceQuestions from "./preferenceQuestions.json";
+import { useState } from "react";
+// import idealogyQuestions from "./idealogyQuestions.json";
+// import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
-import { ForwardIcon, BackwardIcon } from "@heroicons/react/24/outline";
-import { FunctionFragment } from "ethers/lib/utils";
-import { Contract, utils, ethers } from "ethers";
-import { useContract, useProvider, useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
-import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
-import { useScaffoldContractWrite, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-
-/**
- * @param {Contract} contract
- * @returns {FunctionFragment[]} array of function fragments
- */
-
-/**
- * @dev used to filter all readOnly functions with zero params
- * @param {Contract} contract
- * @param {FunctionFragment[]} contractMethodsAndVariables - array of all functions in the contract
- * @param {boolean} refreshDisplayVariables refetch values
- * @returns { methods: (JSX.Element | null)[] } array of DisplayVariable component
- * which has corresponding input field for param type and button to read
- */
+import { BackwardIcon } from "@heroicons/react/24/outline";
+// import { BigNumber } from "ethers";
+import { useAccount } from "wagmi";
+//import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 type Effect = {
   econ: number;
@@ -37,27 +22,16 @@ const dummmyEffect = {
   scty: 0,
 };
 
-type TContractUIProps = {
-  contractName: string;
-  className?: string;
-};
+export default function Quiz() {
+  //const provider = useProvider();
 
-export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: TContractUIProps) {
-  const provider = useProvider();
+  // let contractAddress = "";
+  // let contractABI = [];
+  // const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
 
-  let contractAddress = "";
-  let contractABI = [];
-  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-
-  if (deployedContractData) {
-    ({ address: contractAddress, abi: contractABI } = deployedContractData);
-  }
-
-  const contract: Contract | null = useContract({
-    address: contractAddress,
-    abi: contractABI,
-    signerOrProvider: provider,
-  });
+  // if (deployedContractData) {
+  //   ({ address: contractAddress, abi: contractABI } = deployedContractData);
+  // }
 
   //const [loading, setLoading] = useState(false);
   //const [questions, setQuestions] = useState([]);
@@ -77,12 +51,13 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
   const [preferences, setPreferences] = useState<string[]>([]);
 
   const { address: accountAddress } = useAccount();
+  const [mintParams, setMintParams] = useState<string[]>([]);
 
   const handlePrevious = () => {
     if (currentQuestion > 3) {
       setPreferences(preferences.slice(0, preferences.length - 1));
     }
-    if (currentQuestion <= 3) {
+    if (currentQuestion <= 4) {
       // remove last answer from answers array
       setEconAnswers(econAnswers.slice(0, econAnswers.length - 1));
       setDiplAnswers(diplAnswers.slice(0, diplAnswers.length - 1));
@@ -95,13 +70,9 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       setGovtTotals(govtTotals.slice(0, govtTotals.length - 1));
       setSctyTotals(sctyTotals.slice(0, sctyTotals.length - 1));
     }
-    console.log("preferences", preferences);
-    console.log("econ answers", econAnswers);
-    console.log("econ totals", econTotals);
-    const prevQues = currentQuestion - 1;
+    const prevQues = numberAnswers > 6 ? 6 : currentQuestion - 1;
     if (currentQuestion) prevQues >= 0 && setCurrentQuestion(prevQues);
     const prevAnswer = numberAnswers <= 0 ? 0 : numberAnswers - 1;
-    console.log('prevAnswer', prevAnswer)
     setNumberAnswers(prevAnswer);
   };
 
@@ -128,20 +99,16 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
     setGovtTotals([...govtTotals, effect.govt]);
     setSctyTotals([...sctyTotals, effect.scty]);
 
-    console.log("econ answers", econAnswers);
-    console.log("econ totals", econTotals);
-
     handleNext();
     increaseNumberAnswers();
   };
   const handlePreferenceClick = (answer: string) => {
     setPreferences([...preferences, answer]);
-    console.log("preferences", preferences);
     handleNext();
     increaseNumberAnswers();
   };
 
-  const createUserParams = () => {
+  const createUserObject = () => {
     const totals = {
       econ: econTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
       dipl: diplTotals.reduce((a, b) => Math.abs(a) + Math.abs(b), 0),
@@ -160,7 +127,6 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       govt: answers.govt / totals.govt,
       scty: answers.scty / totals.scty,
     };
-    console.log('position object', positionObject)
     const preferencesObject = {
       color: preferences[0],
       tail: preferences[1],
@@ -170,41 +136,62 @@ export default function Quiz({ contractName = "SquirrlyNFT", className = "" }: T
       position: positionObject,
       preferences: preferencesObject,
     };
-    const userParams = [];
-    const multiplier = Math.pow(10, 18)
-    // userParams.push(
-    //   accountAddress,
-    //   1,
-    //   positionObject.econ * multiplier,
-    //   positionObject.dipl * multiplier,
-    //   positionObject.govt * multiplier,
-    //   positionObject.scty * multiplier,
-    // );
-    userParams.push(
-      accountAddress,
-      1,
-      1,
-      1,
-      1,
-      1,
-    );
-    //console.log(userObject);
-      return userParams
+    console.log(userObject);
+    return userObject;
   };
 
-  const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
-  const userParams = createUserParams()
+  const get_IPFS_CID = async () => {
+    try {
+      const userObject = createUserObject();
+      const { econ, dipl, govt, scty } = userObject.position;
+      const powers = "";
+      const response = await fetch("./api/pushToIPFS", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ econ, dipl, govt, scty, powers }),
+      });
+      const data = await response.json();
+      // return data,or set on state, or do something with it
+      //console.log("IPFS API Response", data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const { writeAsync, isLoading } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", userParams, "1");
-  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {args: [accountAddress]});
+  //KNOWN ERROR: mint is failing because it of a problem with the await .then implementation??
+  const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams);
+
+  const mintWrapper = async () => {
+    try {
+      // get CID
+      const CID = await get_IPFS_CID();
+      // console.log('cid`', CID);
+      // console.log(accountAddress);
+      // set mintParams with address and CID
+      setMintParams([accountAddress, CID]);
+      // call mint
+      await mint();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
+  //const userParams = createUserParams();
+
+  // const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
+  //   args: [accountAddress],
+  // });
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-            {balanceOf?.toNumber() == 0 ? <button onClick={writeAsync}>mint</button> : <p>Owner!</p>}
-            {isLoading && <p>Loading</p>}
+              <button onClick={mintWrapper}>mint wrapper</button>
           </div>
         ) : (
           <div className="flex flex-col items-center">
