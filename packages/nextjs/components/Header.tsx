@@ -6,6 +6,7 @@ import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKit
 import { Bars3Icon, FireIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
+import squirrly from '../public/squirrely.jpg'
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const router = useRouter();
@@ -37,9 +38,9 @@ export default function Header() {
 
   const navLinks = (
     <>
-      <li>
+      {/* <li>
         <NavLink href="/">Home</NavLink>
-      </li>
+      </li> */}
       {/* <li>
         <NavLink href="/debug">
           <BugAntIcon className="h-4 w-4" />
@@ -87,12 +88,8 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex items-center gap-2 mx-4">
           <Link href="/" passHref className="flex relative w-10 h-10">
-            <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
+            <Image alt="squirrly logo" className="cursor-pointer" fill src={squirrly}  />
           </Link>
-          <div className="flex flex-col">
-            <span className="font-bold">Scaffold-eth</span>
-            <span className="text-xs">Forkable Ethereum dev stack</span>
-          </div>
         </div>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
