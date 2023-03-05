@@ -26,7 +26,7 @@ Further integrations with social profiles like lens and farcaster can create per
 
 ```
 git clone https://github.com/WillyDallas/Squirrly
-cd se-2
+cd Squirrly
 yarn install
 ```
 
