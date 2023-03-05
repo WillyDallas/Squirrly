@@ -2,7 +2,7 @@ import { useState } from "react";
 // import idealogyQuestions from "./idealogyQuestions.json";
 // import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
-import { BackwardIcon } from "@heroicons/react/24/outline";
+//import { BackwardIcon } from "@heroicons/react/24/outline";
 // import { BigNumber } from "ethers";
 import { useAccount } from "wagmi";
 //import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
@@ -188,14 +188,19 @@ export default function Quiz() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <div className="flex flex-col items-center justify-between rounded-lg border border-sky-700 w-9/12 md:h-[36rem] h-[36rem]">
+      <div className="flex flex-col items-center justify-between rounded-lg w-9/12 md:h-[36rem] h-[36rem]">
         {numberAnswers > 6 ? (
           <div>
-              <button onClick={mintWrapper}>mint wrapper</button>
+            <button
+              className="btn btn-primary rounded-full capitalize font-normal font-white flex items-center gap-1 hover:gap-2 transition-all tracking-wide"
+              onClick={mintWrapper}
+            >
+              Mint!
+            </button>
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <div className="mt-4 text-xl text-black text-center">{questions[currentQuestion].question}</div>
+            <div className="mt-4 text-xl text-black text-center bg-blue-100">{questions[currentQuestion].question}</div>
             <div className="mt-4 text-xl text-black flex flex-col items-center">
               {questions[currentQuestion].answerOptions &&
                 questions[currentQuestion].answerOptions?.map((el, idx) => {
@@ -255,15 +260,16 @@ export default function Quiz() {
         )}
 
         <div className="w-6/12 flex flex-row justify-evenly">
-          <button onClick={handlePrevious} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
-            <BackwardIcon className="h-8 w-8" />
+          <button onClick={handlePrevious} 
+          className="btn btn-primary rounded-full capitalize font-normal font-white flex items-center gap-1 hover:gap-2 transition-all tracking-wide">
+            Back
           </button>
           {/* <button onClick={handleNext} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
             <ForwardIcon className="h-8 w-8" />
           </button> */}
         </div>
       </div>
-      <h4 className="mt-10 text-xl text-black/60">
+      <h4 className="mt-10 text-xl text-black/60 bg-blue-100">
         Question {currentQuestion + 1} of {questions.length}
       </h4>
     </div>
