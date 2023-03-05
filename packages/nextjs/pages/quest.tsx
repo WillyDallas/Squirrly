@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
   answer2: Yup.string().required("Answer is required"),
 });
 
-const quest = () => {
+const Quest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
 
   const handleNext = () => {
@@ -42,7 +42,7 @@ const quest = () => {
               console.log(values);
             }}
           >
-            {({ errors, touched }) => (
+            {({ }) => (
               <Form>
                 {questions.map(q => (
                   <div key={q.id} className={`question ${q.id === currentQuestion ? "block" : "hidden"}`}>
@@ -95,4 +95,4 @@ const quest = () => {
   );
 };
 
-export default quest;
+export default Quest;
