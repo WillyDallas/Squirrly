@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Connector, useAccount, useConnect } from "wagmi";
 import { useEffectOnce, useLocalStorage } from "usehooks-ts";
 import { burnerWalletId, defaultBurnerChainId } from "~~/services/web3/wagmi-burner/BurnerConnector";
-import { cypher } from '../../lib/cypher'
+import { cypher } from "../../lib/cypher";
 
 export type TAutoConnect = {
   /**
@@ -63,6 +63,9 @@ export const useAutoConnect = (config: TAutoConnect): void => {
   const [walletId, setWalletId] = useLocalStorage<string>(walletIdStorageKey, "");
   const connectState = useConnect();
   const accountState = useAccount();
+  const { address } = useAccount();
+
+  const [initialConnect, setInitialConnect] = useState(true);
 
   useEffect(() => {
     if (accountState.isConnected) {
@@ -83,7 +86,11 @@ export const useAutoConnect = (config: TAutoConnect): void => {
     }
   });
 
-  useEffectOnce(() => {
-    cypher()
-  }, []);
+  // calls repeatedly, popup does not give option to exchange funds
+  useEffect(() => {
+    if (accountState.isConnected && initialConnect) {
+      cypher(address!);
+      setInitialConnect(false);
+    }
+  },[accountState.isConnected, initialConnect, address]);
 };
