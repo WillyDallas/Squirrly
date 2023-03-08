@@ -12,7 +12,7 @@ export function useBalanceOf() {
     args: [accountAddress],
   });
 
-  // this causes an infinite loop between the index and dashboard pages 
+  // this causes an infinite loop between the index and dashboard pages
 
   useEffect(() => {
     if (balanceOf && balanceOf.toNumber() > 0) {
@@ -20,7 +20,8 @@ export function useBalanceOf() {
     } else if (!balanceOf || !isConnected) {
       setHasBalance(false);
     }
-  }, [balanceOf]);
+  }, [balanceOf, isConnected, setHasBalance]);
 
-  return { hasBalance };
+  //if (!hasBalance) return true;
+  return hasBalance;
 }

@@ -35,7 +35,7 @@ const Dashboard: NextPage = () => {
       <div className="flex-col items-center justify-center">
         <div className="flex flex-col justify-center items-center mt-12">
           {/* Play Scenario */}
-          <Link href="/Quest">
+          <Link href="/quest">
             <div className="bg-amber-700 h-16 w-36 text-white text-xl rounded-lg text-center justify-center flex items-center">
               Play Scenario
             </div>
