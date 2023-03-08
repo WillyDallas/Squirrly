@@ -11,3 +11,4 @@ export * from "./useNetworkColor";
 export * from "./useAccountBalance";
 export * from "./useAnimationConfig";
 export * from "./useDeployedContractNames";
+export * from "./useBalanceOf";
