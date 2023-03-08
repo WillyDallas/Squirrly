@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import type { NextPage } from "next";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { BigNumber } from "ethers";
+import { useAccount } from "wagmi";
 
 const questions = [
   {
@@ -20,7 +25,21 @@ const validationSchema = Yup.object({
   answer2: Yup.string().required("Answer is required"),
 });
 
-const Quest = () => {
+const Quest: NextPage = () => {
+  const router = useRouter();
+
+  const { address: accountAddress, isConnected } = useAccount();
+
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
+    args: [accountAddress],
+  });
+
+  useEffect(() => {
+    if (balanceOf?.toNumber() == 0 || !isConnected) {
+      router.push("/");
+    }
+  }, [balanceOf]);
+
   const [currentQuestion, setCurrentQuestion] = useState(1);
 
   const handleNext = () => {

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import squirrlData from "../public/metadata.json";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { BigNumber } from "ethers";
+import { useAccount } from "wagmi";
 
 console.log(squirrlData.name);
 
@@ -10,13 +15,27 @@ const convertAttr = (n: number) => {
   return n.toString() + "px";
 };
 
-const dashboard = () => {
+const Dashboard: NextPage = () => {
+  const router = useRouter();
+
+  const { address: accountAddress, isConnected } = useAccount();
+
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
+    args: [accountAddress],
+  });
+
+  useEffect(() => {
+    if (balanceOf?.toNumber() == 0 || !isConnected) {
+      router.push("/");
+    }
+  }, [balanceOf]);
+
   return (
     <div className="bg-green-100 h-full">
       <div className="flex-col items-center justify-center">
         <div className="flex flex-col justify-center items-center mt-12">
           {/* Play Scenario */}
-          <Link href="/Quest">
+          <Link href="/quest">
             <div className="bg-amber-700 h-16 w-36 text-white text-xl rounded-lg text-center justify-center flex items-center">
               Play Scenario
             </div>
@@ -83,4 +102,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

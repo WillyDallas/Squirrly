@@ -1,17 +1,30 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import Head from "next/head";
-//import { BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
-//import Link from "next/link";
-import React from "react";
-//import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import React, { useEffect } from "react";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import Quiz from "~~/components/ScrollUi/Quiz";
 import Hero from "~~/components/Hero";
 import Description from "~~/components/Description";
 import Image from "next/image";
 import squirrely from "../public/squirrely.jpg";
+import { BigNumber } from "ethers";
+import { useAccount } from "wagmi";
 
 const ScrollUI: NextPage = () => {
-  //const { writeAsync: doCheckin } = useScaffoldContractWrite("YourContract", "checkin", null, "0.001");
+  const router = useRouter();
+
+  const { address: accountAddress } = useAccount();
+
+  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
+    args: [accountAddress],
+  });
+
+  useEffect(() => {
+    if (balanceOf?.toNumber() > 0) {
+      router.push("/dashboard");
+    }
+  }, [balanceOf]);
 
   return (
     <>
