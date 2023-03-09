@@ -24,7 +24,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   await deploy("SquirrlyNFT", {
     from: deployer,
     // Contract constructor arguments
-    args: [deployer],
+    args: [[deployer, "0xB49dA454BC2b020a8D50531FCd4BF1855e5BF3Ca"]],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -34,7 +34,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   await deploy("Quest", {
     from: deployer,
     // Contract constructor arguments
-    args: [],
+    args: [[deployer, "0xB49dA454BC2b020a8D50531FCd4BF1855e5BF3Ca"]],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

@@ -3,17 +3,16 @@ pragma solidity ^0.8.19;
 
 // Useful for debugging. Remove when deploying to a live network.
 import "hardhat/console.sol";
-import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
+contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, AccessControl{
     using Counters for Counters.Counter;
-    using Strings for uint256;
+
+    bytes32 public constant DEV_ROLE = keccak256("DEV_ROLE");
 
     mapping (uint256 => uint256) public lastQuest;
     mapping (uint256 => bool) public isQuestComplete;
@@ -24,14 +23,21 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
 
     Counters.Counter public tokenIdCounter;
 
-    constructor(address owner) ERC721("Squirrly", "SQRL") {
+    constructor(address[] memory devs) ERC721("Squirrly", "SQRL") {
+        for (uint256 i = 0; i < devs.length; ++i) {
+            _grantRole(DEFAULT_ADMIN_ROLE, devs[i]);
+        }
     }
 
-    function pause() public onlyOwner {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControl) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
+
+    function pause() public onlyRole(DEFAULT_ADMIN_ROLE){
         _pause();
     }
 
-    function unpause() public onlyOwner {
+    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE){
         _unpause();
     }
 
@@ -74,7 +80,7 @@ contract SquirrlyNFT is ERC721, ERC721URIStorage, Pausable, Ownable {
     receive() external payable {
     }
 
-    function withdraw() external onlyOwner {
+    function withdraw() external onlyRole(DEFAULT_ADMIN_ROLE){
         payable(msg.sender).transfer(address(this).balance);
     }
 
