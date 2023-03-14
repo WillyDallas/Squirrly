@@ -11,7 +11,7 @@ contract Quest is AccessControl{
 
     //make a public view function for quests
 
-    constructor(address[] memory DMs){
+    constructor(address[] memory DMs, address squirrlyNFTAddress){
         for (uint256 i = 0; i < DMs.length; ++i) {
             _grantRole(DEFAULT_ADMIN_ROLE, DMs[i]);
         }
