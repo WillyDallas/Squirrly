@@ -54,3 +54,65 @@ p {
     transform: translate(-3840px); /* The image width */
   }
 }
+
+.parallax1 {
+  /* The image used */
+  background-image: url("../Assets/BeauTroxclair.eth_Distant_mountain_tops_and_clear_blue_sky_in_a_ac1749aa-47d8-4ba3-8ac1-b3d5d29f7634.png");
+
+  /* Set a specific height */
+  min-height: 1000px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.parallax2 {
+  /* The image used */
+  background-image: url("../Assets/BeauTroxclair.eth_treetops_Dense_forest_in_a_16_bit_pixel_art_s_91fab8dd-a29c-4c46-8fea-6064956c9730.png");
+
+  /* Set a specific height */
+  min-height: 1000px;
+
+  /* Create the parallax scrolling effect */
+  /* background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat; */
+  background-size: cover;
+}
+
+.parallax3 {
+  /* The image used */
+  background-image: url("../Assets/BeauTroxclair.eth_a_forest_clearing_with_trees_in_a_16_bit_pixe_e9cb6b3b-e263-4896-bf6d-8672bc1df3b2.png");
+
+  /* Set a specific height */
+  min-height: 800px;
+
+  /* Create the parallax scrolling effect */
+  /* background-attachment: fixed; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.parallax4 {
+  /* The image used */
+  background-image: url("../Assets/resjudicoda_None_4429cfb6-5287-4bc3-857c-a1c320e78fbf.png");
+
+  /* Set a specific height */
+  min-height: 2000px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (max-device-width: 1366px) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}

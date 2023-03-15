@@ -32,21 +32,14 @@ const ScrollUI: NextPage = () => {
         <title>Squirrly App</title>
         <meta name="description" content="Created with 🏗 scaffold-eth" />
       </Head>
-
-      <main className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
+      {/* original */}
+      {/* <main className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
         <section className="w-full h-screen mb-30 bg-cover bg-[url('/landing_mobile.jpg')] md:bg-[url('/landing_desk.jpg')] md:bg-cover bg-top mt-10 snap-start">
           <Hero />
         </section>
         <section className="w-full h-screen bg-gradient-to-r from-yellow-300 to-green-700 bg-top snap-start">
-          {/* <div className="overflow-hidden">
-            <div >
-            <Description />
-            </div>
-
-          </div> */}
           <Description />
         </section>
-        {/* <section className="w-full h-screen bg-amber-400 snap-start">Trees</section> */}
         <section className="w-full h-screen bg-top snap-start">
           <div className="flex flex-row items-center content-center justify-items-start">
             <div className="w-4/12 flex flex-col items-center">
@@ -54,11 +47,32 @@ const ScrollUI: NextPage = () => {
                 <Image src={squirrely} width="250" height="250" alt="pixel art squirrel" />
               </div>
             </div>
-
             <div className="w-8/12">{<Quiz />}</div>
           </div>
         </section>
+      </main> */}
+
+      {/* version 1 with three different images */}
+      <main>
+        <div className="parallax1"></div>
+        <div><Description /></div>
+        <div className="parallax2"></div>
+        <div><Description /></div>
+        <div className="parallax3">
+          <div>
+            <Quiz/>
+          </div>
+        </div>
       </main>
+
+      {/* version 2 with one image */}
+      {/* <main>
+        <div className="parallax4"></div>
+        <div><Description /></div>
+          <div>
+            <Quiz/>
+          </div>
+      </main> */}
     </>
   );
 };
