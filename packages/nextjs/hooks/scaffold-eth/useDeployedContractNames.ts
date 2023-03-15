@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { getTargetNetwork } from "~~/lib/scaffold-eth";
 
 /**
  * @dev use this hook to get the list of contracts deployed by `yarn deploy`.

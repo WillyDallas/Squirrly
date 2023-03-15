@@ -12,7 +12,7 @@ import * as chains from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { burnerWalletConfig } from "~~/services/web3/wagmi-burner/burnerWalletConfig";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { getTargetNetwork } from "~~/lib/scaffold-eth";
 
 const configuredChain = getTargetNetwork();
 // We always want to have mainnet enabled (ENS resolution, ETH price, etc). But only once.

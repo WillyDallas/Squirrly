@@ -1,5 +1,5 @@
 import { useContractEvent } from "wagmi";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { getTargetNetwork } from "~~/lib/scaffold-eth";
 
 import { useDeployedContractInfo } from "./useDeployedContractInfo";
 

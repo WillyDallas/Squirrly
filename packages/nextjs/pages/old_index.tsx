@@ -8,7 +8,7 @@ import Head from "next/head";
 // import { useAutoConnect, useAccountBalance } from "~~/hooks/scaffold-eth";
 //import { useAccount } from "wagmi";
 //import { BigNumber } from "ethers";
-import { storeNFT } from "../utils/pushToIpfs.js";
+import { storeNFT } from "../lib/pushToIpfs.js.js";
 
 const API_KEY = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
 

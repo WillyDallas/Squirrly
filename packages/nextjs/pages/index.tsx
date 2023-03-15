@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import Quiz from "~~/components/ScrollUi/Quiz";
+// import Quiz from "~~/components/ScrollUi/Quiz";
 import Hero from "~~/components/Hero";
 import Description from "~~/components/Description";
 import Image from "next/image";
@@ -25,6 +25,28 @@ const ScrollUI: NextPage = () => {
       router.push("/dashboard");
     }
   }, [balanceOf]);
+
+  const createPlayer = async () => {
+    console.log(accountAddress);
+    try {
+      const playerInfo = {
+        username: "masterSquirrel",
+        email: "beau.troxclair@gmail.com",
+        address: accountAddress,
+      };
+      const res = await fetch("./api/createPlayer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(playerInfo),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -52,10 +74,16 @@ const ScrollUI: NextPage = () => {
             <div className="w-4/12 flex flex-col items-center">
               <div>
                 <Image src={squirrely} width="250" height="250" alt="pixel art squirrel" />
+                <button
+                  onClick={() => createPlayer()}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Create Player Profile
+                </button>
               </div>
             </div>
 
-            <div className="w-8/12">{<Quiz />}</div>
+            {/* <div className="w-8/12">{<Quiz />}</div> */}
           </div>
         </section>
       </main>

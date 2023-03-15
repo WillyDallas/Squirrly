@@ -4,7 +4,7 @@ import { Signer } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
 import { useSigner } from "wagmi";
 import { getParsedEthersError } from "~~/components/scaffold-eth/Contract/utilsContract";
-import { getBlockExplorerTxLink, notification } from "~~/utils/scaffold-eth";
+import { getBlockExplorerTxLink, notification } from "~~/lib/scaffold-eth";
 
 type TTransactionFunc = (
   tx: Promise<SendTransactionResult> | Deferrable<TransactionRequest> | undefined,

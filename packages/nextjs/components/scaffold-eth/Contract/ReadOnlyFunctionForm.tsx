@@ -4,7 +4,7 @@ import { useContractRead } from "wagmi";
 import { displayTxResult } from "./utilsDisplay";
 import InputUI from "./InputUI";
 import { getFunctionInputKey, getParsedContractFunctionArgs } from "./utilsContract";
-import { getTargetNetwork, notification } from "~~/utils/scaffold-eth";
+import { getTargetNetwork, notification } from "~~/lib/scaffold-eth";
 
 const getInitialFormState = (functionFragment: FunctionFragment) => {
   const initialForm: Record<string, any> = {};

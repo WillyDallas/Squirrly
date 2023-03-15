@@ -6,7 +6,7 @@ import TxReceipt from "./TxReceipt";
 import { getFunctionInputKey, getParsedContractFunctionArgs, getParsedEthersError } from "./utilsContract";
 import { TxValueInput } from "./utilsComponents";
 import { useTransactor } from "~~/hooks/scaffold-eth";
-import { notification, parseTxnValue, getTargetNetwork } from "~~/utils/scaffold-eth";
+import { notification, parseTxnValue, getTargetNetwork } from "~~/lib/scaffold-eth";
 
 // TODO set sensible initial state values to avoid error on first render, also put it in utilsContract
 const getInitialFormState = (functionFragment: FunctionFragment) => {

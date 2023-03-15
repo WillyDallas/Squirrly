@@ -4,7 +4,7 @@ import { useAppStore } from "~~/services/store/store";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import SwitchTheme from "./SwitchTheme";
 import { Faucet } from "~~/components/scaffold-eth";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { getTargetNetwork } from "~~/lib/scaffold-eth";
 import { hardhat } from "wagmi/chains";
 
 /**

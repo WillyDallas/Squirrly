@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
 import { displayTxResult } from "./utilsDisplay";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import { getTargetNetwork, notification } from "~~/utils/scaffold-eth";
+import { getTargetNetwork, notification } from "~~/lib/scaffold-eth";
 import { useAnimationConfig } from "~~/hooks/scaffold-eth/useAnimationConfig";
 
 type TDisplayVariableProps = {

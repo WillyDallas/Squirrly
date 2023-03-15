@@ -9,7 +9,7 @@ import {
 } from "./utilsContract";
 import { Balance, Address } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { getTargetNetwork } from "~~/lib/scaffold-eth";
 import Spinner from "~~/components/Spinner";
 
 type TContractUIProps = {

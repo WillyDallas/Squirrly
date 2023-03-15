@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useAccount, useNetwork } from "wagmi";
 import { hardhat, localhost } from "wagmi/chains";
 import { useTransactor } from "~~/hooks/scaffold-eth";
-import { getLocalProvider } from "~~/utils/scaffold-eth";
+import { getLocalProvider } from "~~/lib/scaffold-eth";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { useAccountBalance } from "~~/hooks/scaffold-eth/useAccountBalance";
 

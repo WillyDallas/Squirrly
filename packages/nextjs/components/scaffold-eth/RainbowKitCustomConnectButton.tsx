@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { TAutoConnect, useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
 import Balance from "~~/components/scaffold-eth/Balance";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { getTargetNetwork } from "~~/lib/scaffold-eth";
 
 // todo: move this later scaffold config.  See TAutoConnect for comments on each prop
 const tempAutoConnectConfig: TAutoConnect = {
