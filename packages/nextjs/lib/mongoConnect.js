@@ -31,6 +31,8 @@ async function mongoConnect() {
     const opts = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      //connection times out after 10 minutess
+      // connectionTimeoutMS: 600000,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {

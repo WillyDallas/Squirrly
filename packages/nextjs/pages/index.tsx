@@ -47,6 +47,27 @@ const ScrollUI: NextPage = () => {
       console.log(error);
     }
   };
+  const updatePlayer = async () => {
+    console.log(accountAddress);
+    try {
+      const playerInfo = {
+        username: "masterSquirrel",
+        email: "willy.dallas@pm.me",
+        address: accountAddress,
+      };
+      const res = await fetch("./api/updatePlayer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(playerInfo),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -79,6 +100,12 @@ const ScrollUI: NextPage = () => {
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Create Player Profile
+                </button>
+                <button
+                  onClick={() => updatePlayer()}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Update Player Profile
                 </button>
               </div>
             </div>

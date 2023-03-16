@@ -260,8 +260,10 @@ export default function Quiz() {
         )}
 
         <div className="w-6/12 flex flex-row justify-evenly">
-          <button onClick={handlePrevious} 
-          className="btn btn-primary rounded-full capitalize font-normal font-white flex items-center gap-1 hover:gap-2 transition-all tracking-wide">
+          <button
+            onClick={handlePrevious}
+            className="btn btn-primary rounded-full capitalize font-normal font-white flex items-center gap-1 hover:gap-2 transition-all tracking-wide"
+          >
             Back
           </button>
           {/* <button onClick={handleNext} className="w-12 py-3 bg-indigo-600 rounded-lg flex flex-row justify-center">
