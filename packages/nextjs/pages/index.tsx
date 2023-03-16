@@ -54,13 +54,20 @@ const ScrollUI: NextPage = () => {
 
       {/* version 1 with three different images */}
       <main>
-        <div className="parallax1"></div>
-        <div><Description /></div>
+        <div className="parallax1">
+          <Image src="/landing.jpeg" alt="pixel art squirrel" width={500} height={200} />
+          <Image src="/tree1.png" alt="tree" width={50} height={50} className="top-24 left-3 fixed" />
+        </div>
+        <div>
+          <Description />
+        </div>
         <div className="parallax2"></div>
-        <div><Description /></div>
+        <div>
+          <Description />
+        </div>
         <div className="parallax3">
           <div>
-            <Quiz/>
+            <Quiz />
           </div>
         </div>
       </main>
