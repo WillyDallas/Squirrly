@@ -5,8 +5,10 @@ export default async function createPlayer(req, res) {
   try {
     await mongoConnect();
     const player = await Player.create(req.body);
+    await player.save();
+    console.log(player);
     res.status(201).json(player);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log(err.message);
   }
 }

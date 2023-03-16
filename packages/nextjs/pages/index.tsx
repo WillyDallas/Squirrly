@@ -24,17 +24,39 @@ const ScrollUI: NextPage = () => {
     if (balanceOf?.toNumber() > 0) {
       router.push("/dashboard");
     }
+    getPlayer();
   }, [balanceOf]);
 
-  const createPlayer = async () => {
-    console.log(accountAddress);
+  const playerInfo = {
+    walletAddress: accountAddress,
+  };
+
+  const newPlayerInfo = {
+    walletAddress: accountAddress,
+    stats: {
+      science: 1,
+    },
+  }
+
+  const updatePlayer = async () => {
     try {
-      const playerInfo = {
-        username: "masterSquirrel",
-        email: "beau.troxclair@gmail.com",
-        address: accountAddress,
-      };
-      const res = await fetch("./api/createPlayer", {
+      const res = await fetch("./api/updatePlayer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPlayerInfo),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getPlayer = async () => {
+    try {
+      const res = await fetch("./api/getPlayerProfile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,19 +65,14 @@ const ScrollUI: NextPage = () => {
       });
       const data = await res.json();
       console.log(data);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
-  const updatePlayer = async () => {
-    console.log(accountAddress);
+
+  const createPlayer = async () => {
     try {
-      const playerInfo = {
-        username: "masterSquirrel",
-        email: "willy.dallas@pm.me",
-        address: accountAddress,
-      };
-      const res = await fetch("./api/updatePlayer", {
+      const res = await fetch("./api/createPlayer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
