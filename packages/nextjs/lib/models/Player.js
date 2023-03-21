@@ -58,8 +58,13 @@ const PlayerSchema = new mongoose.Schema({
   },
   updatedAt: {
     type: Date,
-    default: Date.now,
+    default: () => Date.now(),
   },
+});
+
+PlayerSchema.pre("save", function (next) {
+  this.updatedAt = Date.now();
+  next();
 });
 
 const Player = mongoose.models.Player || mongoose.model("Player", PlayerSchema);

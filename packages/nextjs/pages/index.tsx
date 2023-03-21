@@ -24,7 +24,8 @@ const ScrollUI: NextPage = () => {
     if (balanceOf?.toNumber() > 0) {
       router.push("/dashboard");
     }
-    getPlayer();
+    let playerProfile = getPlayer();
+    console.log(playerProfile);
   }, [balanceOf]);
 
   const playerInfo = {
@@ -35,8 +36,11 @@ const ScrollUI: NextPage = () => {
     walletAddress: accountAddress,
     stats: {
       science: 1,
+      alignment: {
+        econ: 1,
+      },
     },
-  }
+  };
 
   const updatePlayer = async () => {
     try {
@@ -48,7 +52,7 @@ const ScrollUI: NextPage = () => {
         body: JSON.stringify(newPlayerInfo),
       });
       const data = await res.json();
-      console.log(data);
+      return data;
     } catch (err) {
       console.log(err);
     }
