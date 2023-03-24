@@ -24,7 +24,7 @@ const ScrollUI: NextPage = () => {
     if (balanceOf?.toNumber() > 0) {
       router.push("/dashboard");
     }
-    let playerProfile = getPlayer();
+    const playerProfile = getPlayer();
     console.log(playerProfile);
   }, [balanceOf]);
 
