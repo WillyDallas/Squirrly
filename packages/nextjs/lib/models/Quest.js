@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 
+/*
+What does a quest data schema look like?
+
+*/
+
 const choiceSchema = new mongoose.Schema({
-  description: {
+  options: {
     type: String,
     required: true,
   },
