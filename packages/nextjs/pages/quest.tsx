@@ -1,117 +1,15 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import type { NextPage } from "next";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { BigNumber } from "ethers";
-import { useAccount } from "wagmi";
+import { Quest } from "~~/components/pages"
+import { PageError } from "~~/components/PageError";
 
-const questions = [
-  {
-    id: 1,
-    question: "Question 1",
-    answers: ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
-  },
-  {
-    id: 2,
-    question: "Question 2",
-    answers: ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
-  },
-];
+// this is strictly for dev purposes
+// this page simply enables the nav bar link for easier access to the component
+// disable this page and link in header for deployment
+const isProduction = process.env.NODE_ENV === "production";
 
-const validationSchema = Yup.object({
-  answer1: Yup.string().required("Answer is required"),
-  answer2: Yup.string().required("Answer is required"),
-});
-
-const Quest: NextPage = () => {
-  const router = useRouter();
-
-  const { address: accountAddress, isConnected } = useAccount();
-
-  const { data: balanceOf } = useScaffoldContractRead<BigNumber>("SquirrlyNFT", "balanceOf", {
-    args: [accountAddress],
-  });
-
-  useEffect(() => {
-    if (balanceOf?.toNumber() == 0 || !isConnected) {
-      router.push("/");
-    }
-  }, [balanceOf]);
-
-  const [currentQuestion, setCurrentQuestion] = useState(1);
-
-  const handleNext = () => {
-    setCurrentQuestion(prev => prev + 1);
-  };
-
-  const handlePrev = () => {
-    setCurrentQuestion(prev => prev - 1);
-  };
-
-  return (
-    <div className="bg-amber-200 h-screen w-full">
-      <div className="container mx-auto w-full px-4">
-        <div className="m-8 p-4 flex justify-center mx-auto">
-          <Formik
-            initialValues={{ answer1: "", answer2: "" }}
-            validationSchema={validationSchema}
-            onSubmit={values => {
-              console.log(values);
-            }}
-          >
-            {({ }) => (
-              <Form>
-                {questions.map(q => (
-                  <div key={q.id} className={`question ${q.id === currentQuestion ? "block" : "hidden"}`}>
-                    <h2 className="text-2xl font-bold">{q.question}</h2>
-                    {q.answers.map(a => (
-                      <div key={a}>
-                        <label>
-                          <Field type="radio" name={`answer${q.id}`} value={a} />
-                          {a}
-                        </label>
-                      </div>
-                    ))}
-                    <ErrorMessage name={`answer${q.id}`} component="div" className="text-red-500" />
-                  </div>
-                ))}
-                <div className="flex justify-between mt-8 p-4">
-                  {currentQuestion > 1 && (
-                    <button
-                      type="button"
-                      className="bg-amber-600 m-2 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
-                      onClick={handlePrev}
-                    >
-                      Previous
-                    </button>
-                  )}
-                  {currentQuestion < questions.length && (
-                    <button
-                      type="button"
-                      className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
-                      onClick={handleNext}
-                    >
-                      Next
-                    </button>
-                  )}
-                  {currentQuestion === questions.length && (
-                    <button
-                      type="submit"
-                      className="bg-amber-600 m-2 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      Submit
-                    </button>
-                  )}
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      </div>
-    </div>
-  );
+const QuestPage: NextPage = () => {
+  if (!isProduction) return <Quest />;
+  return <PageError />;
 };
 
-export default Quest;
+export default QuestPage;

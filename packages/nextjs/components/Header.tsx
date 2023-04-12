@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaucetButton } from "~~/components/scaffold-eth";
 import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKitCustomConnectButton";
-import { Bars3Icon, FireIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, FireIcon, BoltIcon, BugAntIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import squirrly from "../public/squirrely.jpg";
@@ -36,24 +36,26 @@ export default function Header() {
     useCallback(() => setIsDrawerOpen(false), []),
   );
 
+  // navlinks are for viewing pages during development only
+  // disable before deployment
   const navLinks = (
     <>
-      {/* <li>
-        <NavLink href="/">Home</NavLink>
-      </li> */}
       <li>
-        <NavLink href="/debug">Debug Contracts</NavLink>
-      </li>
-      {/* <li>
-        <NavLink href="/scroll-ui">
-          <FireIcon className="h-4 w-4" />
-          Scroll UI
+        <NavLink href="/debug">
+          <BugAntIcon className="h-4 w-4" />
+          Debug Contracts
         </NavLink>
-      </li> */}
+      </li>
       <li>
         <NavLink href="/dashboard">
           <FireIcon className="h-4 w-4" />
           Dashboard
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/quest">
+          <BoltIcon className="h-4 w-4" />
+          Quest
         </NavLink>
       </li>
     </>
