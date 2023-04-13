@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 // import idealogyQuestions from "./idealogyQuestions.json";
 // import preferenceQuestions from "./preferenceQuestions.json";
 import questions from "./questions.json";
@@ -51,7 +51,6 @@ export default function Quiz() {
   const [preferences, setPreferences] = useState<string[]>([]);
 
   const { address: accountAddress } = useAccount();
-  const [mintParams, setMintParams] = useState<string[]>([]);
 
   const handlePrevious = () => {
     if (currentQuestion > 3) {
@@ -161,23 +160,34 @@ export default function Quiz() {
     }
   };
 
-  //KNOWN ERROR: mint is failing because it of a problem with the await .then implementation??
+  //added useRef and useEffect to call mint on one click
+  const [mintParams, setMintParams] = useState<string[]>([]);
+  const isFirstRender = useRef(true);
   const { writeAsync: mint } = useScaffoldContractWrite("SquirrlyNFT", "safeMint", mintParams);
 
-  const mintWrapper = async () => {
+  const mintPreparer = async () => {
     try {
       // get CID
       const CID = await get_IPFS_CID();
       // console.log('cid`', CID);
       // console.log(accountAddress);
       // set mintParams with address and CID
-      setMintParams([accountAddress, CID]);
       // call mint
-      await mint();
+      setMintParams([accountAddress, CID]);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // call useEffect after setting mintParams to call mint
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false; // toggle isFirstRender after mounting
+      return;
+    }
+    mint(); // do something after state has updated
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mintParams]);
 
   //const testParams = [accountAddress, 1, 1, 1, 1, 1, "charisma"];
   //const userParams = createUserParams();
@@ -193,7 +203,7 @@ export default function Quiz() {
           <div>
             <button
               className="btn btn-primary rounded-full capitalize font-normal font-white flex items-center gap-1 hover:gap-2 transition-all tracking-wide"
-              onClick={mintWrapper}
+              onClick={mintPreparer}
             >
               Mint!
             </button>
