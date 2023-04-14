@@ -71,7 +71,7 @@ p {
 
 .parallax2 {
   /* The image used */
-  background-image: url("../public/forest2.png");
+  background-image: url("../public/forest3.png");
 
   /* Set a specific height */
   min-height: 1000px;
@@ -99,13 +99,13 @@ p {
 
 .parallax4 {
   /* The image used */
-  /* background-image: url("../Assets/resjudicoda_None_4429cfb6-5287-4bc3-857c-a1c320e78fbf.png"); */
+  background-image: url("../public/assets/Forest\ Landscapes/forest1.png");
 
   /* Set a specific height */
-  min-height: 2000px;
+  min-height: 800px;
 
   /* Create the parallax scrolling effect */
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

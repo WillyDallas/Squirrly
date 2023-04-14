@@ -85,6 +85,14 @@ module.exports = {
         "pulse-fast": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         zoom: "zoom 1s ease infinite",
       },
+      colors: {
+        skyDark: "#29a6e1",
+        skyLight: "#44c6d2",
+        forestLight: "#5aaa85",
+        forestSky: "#95e3bc",
+        forestFloor: "#78932a",
+        forestClearingSky: "#4fe7d2",
+      },
       /*backgroundImage: {
         mountain: "url('/public/mountains.jpg')",
 
